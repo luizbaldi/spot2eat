@@ -6,7 +6,9 @@
     "bootstrap": "^3.3.7",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.1",
+    "react-sidebar": "^2.3.2"
   },
   "devDependencies": {
     "react-scripts": "1.0.7"
