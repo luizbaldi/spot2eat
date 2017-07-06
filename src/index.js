@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './screens/App';
 import { BrowserRouter } from 'react-router-dom';
-import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './shared/style/style.css';
+import './shared/style/general.css';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -12,5 +11,3 @@ ReactDOM.render(
 	</BrowserRouter>,
 	document.getElementById('root')
 );
-
-registerServiceWorker();
