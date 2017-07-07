@@ -8,15 +8,29 @@ footer {
    color: #9d9d9d;
 }
 
+header {
+   position:fixed;
+   left:0px;
+   top:0px;
+   height:40px;
+   width:100%;
+   background:#E84855;
+   color: #9d9d9d;
+}
+
 .bg-color-default {
 	background-color: #FFFD82;
+}
+
+.bg-color-secundary {
+	background-color: #E84855;
 }
 
 .label-color-default {
 	color: #fafafa;
 }
 
-.login-container {
+.app-container {
 	height: 100vh;
 	width: 100%;
 }

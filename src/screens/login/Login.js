@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 
 class Login extends Component {
@@ -21,23 +20,22 @@ class Login extends Component {
 	}
 	render() {
 		return (
-			<div className="login-container text-center bg-color-default">
+			<div className="app-container bg-color-default">
 				<div className="panel vertically-center">
-					<form className="container">
-						<FormGroup>
-							<ControlLabel className="label-color-default">E-mail</ControlLabel>
-							<FormControl id="email"
-								type="text"
-							/>
-							<ControlLabel className="label-color-default">Senha</ControlLabel>
-							<FormControl id="password"
-								type="text"
-							/>
-					    </FormGroup>
-						<Button block onClick={this.validateLogin}>Login</Button>
+					<h4>spot2eat</h4>
+					<form>
+						E-mail:
+						<br />
+						<input type="text" name="email" />
+						<br />
+						Senha:
+						<br />
+						<input type="text" name="password" />
+						<br />
+						<button onClick={this.validateLogin}>Login</button>
 						<hr />
 						<Link to="/signup">
-							<Button block>Cadastre-se</Button>
+							<button>Cadastre-se</button>
 						</Link>
 					</form>
 				</div>

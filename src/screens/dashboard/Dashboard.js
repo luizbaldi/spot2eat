@@ -4,7 +4,7 @@ import Footer from '../../shared/components/Footer';
 
 const Dashboard = () => {
 	return (
-		<div>
+		<div className="app-container bg-color-default">
 			<Header />
 	        <Footer />
 		</div>

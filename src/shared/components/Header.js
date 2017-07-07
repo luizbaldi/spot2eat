@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Navbar } from 'react-bootstrap/lib';
 import Sidebar from 'react-sidebar';
 
 class Header extends Component {
@@ -28,18 +27,12 @@ class Header extends Component {
 						open={this.state.sidebarOpen}
 						onSetOpen={this.onToggleSidebar} >
 					<hr />
-					<b>Gerenciar pontos</b>
+					<ul>
+						<li><b>Gerenciar restaurantes</b></li>
+						<li><b>Logout</b></li>
+					</ul>
 				</Sidebar>
-				<Navbar inverse collapseOnSelect>
-					<Navbar.Header>
-						<Navbar.Brand>
-							<span className="glyphicon glyphicon-align-justify"
-								onClick={this.onToggleSidebar} />
-							<a>Spot2Eat</a>
-						</Navbar.Brand>
-						<Navbar.Toggle />
-					</Navbar.Header>
-				</Navbar>
+				<header onClick={this.onToggleSidebar}></header>
 			</div>
 		);
 	}
