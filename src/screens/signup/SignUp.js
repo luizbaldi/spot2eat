@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Footer from '../../shared/components/footer/Footer';
 
 class SignUp extends Component {
 	constructor(props) {
@@ -76,6 +77,7 @@ class SignUp extends Component {
 						<button onClick={this.signUp} type="button">Cadastrar</button>
 					</form>
 				</div>
+				<Footer {...this.props} showBack />
 			</div>
 		);
 	}
