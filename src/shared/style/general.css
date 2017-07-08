@@ -47,3 +47,7 @@ header {
 	top: 50%;
 	transform: translateY(-50%);
 }
+
+.text-center {
+	text-align: center;
+}
