@@ -14,6 +14,7 @@ class Login extends Component {
 		this.validateLogin = this.validateLogin.bind(this);
 		this.onFieldChange = this.onFieldChange.bind(this);
 	}
+
 	validateLogin() {
 		let username = this.state.username;
 		let password = this.state.password;
@@ -41,14 +42,16 @@ class Login extends Component {
 			alert("Please type your e-mail and password to procced :)");
 		}
 	}
+
 	onFieldChange({target}) {
 		this.setState({
 			[target.name]: target.value
 		});
 	}
+	
 	render() {
 		return (
-			<div className="app-container bg-color-default">
+			<div className="app-container screen-login">
 				<div className="panel vertically-center text-center">
 					<h4>spot2eat</h4>
 					<form>
