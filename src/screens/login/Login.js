@@ -7,23 +7,22 @@ class Login extends Component {
 		super(props);
 
 		this.state = {
-			email: '',
+			username: '',
 			password: ''
 		};
 
 		this.validateLogin = this.validateLogin.bind(this);
-		this.onEmailChange = this.onEmailChange.bind(this);
-		this.onPasswordChange = this.onPasswordChange.bind(this);
+		this.onFieldChange = this.onFieldChange.bind(this);
 	}
 	validateLogin() {
-		let email = this.state.email;
+		let username = this.state.username;
 		let password = this.state.password;
-		if (email && password) {
-	  		axios.get("https://api.myjson.com/bins/8e5l3")
+		if (username && password) {
+	  		axios.get("https://api.myjson.com/bins/1gzisn")
 				.then(response => {
 					let currentUser;
 					let isLoginValid = response.data.some(user => {
-						if (email === user.email && password === user.password) {
+						if (username === user.username && password === user.password) {
 							currentUser = user;
 							return true;
 						}
@@ -42,14 +41,9 @@ class Login extends Component {
 			alert("Please type your e-mail and password to procced :)");
 		}
 	}
-	onEmailChange(e) {
+	onFieldChange({target}) {
 		this.setState({
-			email: e.target.value
-		});
-	}
-	onPasswordChange(e) {
-		this.setState({
-			password: e.target.value
+			[target.name]: target.value
 		});
 	}
 	render() {
@@ -58,13 +52,13 @@ class Login extends Component {
 				<div className="panel vertically-center text-center">
 					<h4>spot2eat</h4>
 					<form>
-						E-mail:
+						Username:
 						<br />
-						<input type="text" name="email" onChange={this.onEmailChange} />
+						<input type="text" name="username" onChange={this.onFieldChange} />
 						<br />
 						Senha:
 						<br />
-						<input type="password" name="password" onChange={this.onPasswordChange} />
+						<input type="password" name="password" onChange={this.onFieldChange} />
 						<br />
 						<button onClick={this.validateLogin} type="button">Login</button>
 						<hr />
