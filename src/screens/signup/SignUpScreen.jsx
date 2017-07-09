@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Footer from '../../shared/components/footer/Footer';
+import Footer from '../../components/Footer';
 
+/*
+ * Component
+ */
 class SignUp extends Component {
 	constructor(props) {
 		super(props);
@@ -15,11 +18,13 @@ class SignUp extends Component {
 		this.onFieldChange = this.onFieldChange.bind(this);
 		this.signUp = this.signUp.bind(this);
 	}
+
 	onFieldChange({target}) {
 		this.setState({
 			[target.name]: target.value
 		});
 	}
+
 	signUp() {
 		let name = this.state.name;
 		let username = this.state.username;
@@ -57,6 +62,7 @@ class SignUp extends Component {
 			alert("Please, complete all fields to procced.")
 		}
 	}
+
 	render() {
 		return (
 			<div className="app-container bg-color-default">

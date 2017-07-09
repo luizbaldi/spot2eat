@@ -1,7 +1,10 @@
 import React from 'react';
-import Header from '../../shared/components/header/Header';
-import Footer from '../../shared/components/footer/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
+/*
+ * Component
+ */
 const Dashboard = (props) => {
 	return (
 		<div className="app-container bg-color-default">

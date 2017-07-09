@@ -1,16 +1,13 @@
-/*
- * Dependencies
- */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import FullScreenContainer from '../../components/full-screen-container';
-import Input from '../../components/input';
+import FullScreenContainer from '../../components/FullScreenContainer';
+import Input from '../../components/Input';
 import axios from 'axios';
 
 /*
  * Component
  */
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
 	constructor(props) {
 		super(props);
 
@@ -56,22 +53,29 @@ export default class LoginScreen extends Component {
 			[target.name]: target.value
 		});
 	}
-	
+
 	render() {
 		return (
 			<FullScreenContainer style={styles.page}>
 				<h1>Spot2Eat</h1>
 				<form style={styles.form}>
-					<Input type={Input.Types.TEXT} style={styles.input} placeholder="E-mail" onChange={this.onFieldChange} />
-					<Input type={Input.Types.PASSWORD} style={styles.input} placeholder="Senha" onChange={this.onFieldChange} />
-
+					<Input type={Input.Types.TEXT}
+						style={styles.input}
+						placeholder="Username"
+						onChange={this.onFieldChange}
+						name="username" />
+					<Input type={Input.Types.PASSWORD}
+						style={styles.input}
+						placeholder="Senha"
+						onChange={this.onFieldChange}
+						name="password" />
 					<button onClick={this.validateLogin} type="button">Login</button>
 					<Link to="/signup"><span>Ou crie uma conta clicando aqui</span></Link>
 				</form>
 			</FullScreenContainer>
 		);
 	}
-}
+};
 
 const styles = {
 	page: {
@@ -99,3 +103,5 @@ const styles = {
 		marginBottom: '5px'
 	}
 };
+
+export default LoginScreen;

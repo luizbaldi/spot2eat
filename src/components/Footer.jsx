@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import './footer.css';
 
+/*
+ * Component
+ */
 class Footer extends Component {
 	constructor(props) {
 		super(props);
@@ -14,7 +16,7 @@ class Footer extends Component {
 		return (
 			<footer className="bg-color-secundary">
 				{this.props.showBack ?
-					<div className="back-button" onClick={this.goBack}>
+					<div style={backButtonStyle} onClick={this.goBack}>
 						Voltar
 					</div>
 					: false
@@ -23,5 +25,16 @@ class Footer extends Component {
 		);
 	}
 }
+
+/*
+ * Style
+ */
+const backButtonStyle = {
+    width: "30%",
+    height: "100%",
+    fontSize: "1.4em",
+    lineHeight: "40px",
+    padding: "0 20px"
+};
 
 export default Footer;

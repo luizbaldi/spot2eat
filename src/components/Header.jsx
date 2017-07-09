@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Sidebar from 'react-sidebar';
 
+/*
+ * Component
+ */
 class Header extends Component {
 	constructor(props) {
 		super(props);

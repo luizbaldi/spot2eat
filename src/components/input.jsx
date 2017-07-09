@@ -1,16 +1,16 @@
-/*
- * Dependencies
- */
 import React from 'react';
 
 /*
  * Component
  */
-export default class Input extends React.Component {
-	render(){
-		return (<input type={this.props.type} placeholder={this.props.placeholder}/>);
-	}
-}
+const Input = ({type, placeholder, onChange, name}) => {
+	return (
+		<input type={type}
+			placeholder={placeholder}
+			onChange={onChange}
+			name={name} />
+	);
+};
 
 Input.Types = {
 	TEXT: 'text',
@@ -18,3 +18,4 @@ Input.Types = {
 	EMAIL: 'email'
 };
 
+export default Input;
