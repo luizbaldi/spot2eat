@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FullScreenContainer from '../../components/full-screen-container';
+import Input from '../../components/input';
 import axios from 'axios';
 
 /*
@@ -61,16 +62,11 @@ export default class LoginScreen extends Component {
 			<FullScreenContainer style={styles.page}>
 				<h1>Spot2Eat</h1>
 				<form style={styles.form}>
-					<label htmlFor="username">E-mail:</label>
-					<input style={styles.input} name="username" onChange={this.onFieldChange} />
-
-					<label htmlFor="password">Senha:</label>
-					<input style={styles.input} name="password" onChange={this.onFieldChange} />
+					<Input type={Input.Types.TEXT} style={styles.input} placeholder="E-mail" onChange={this.onFieldChange} />
+					<Input type={Input.Types.PASSWORD} style={styles.input} placeholder="Senha" onChange={this.onFieldChange} />
 
 					<button onClick={this.validateLogin} type="button">Login</button>
-					<Link to="/signup">
-						<span>Ou crie uma conta clicando aqui</span>
-					</Link>
+					<Link to="/signup"><span>Ou crie uma conta clicando aqui</span></Link>
 				</form>
 			</FullScreenContainer>
 		);
@@ -81,7 +77,8 @@ const styles = {
 	page: {
 		background: 'url(img/blue-people-bg.jpg) no-repeat',
 		backgroundPosition: 'center center',
-		backgroundSize: 'cover'
+		backgroundSize: 'cover',
+		color: 'white'
 	},
 
 	form: {
@@ -90,13 +87,15 @@ const styles = {
 	},
 
 	input: {
-		background: 'white',
+		border: 'none',
+		borderBottom: '1px solid grey',
+		display: 'block',
 		height: '44px',
 		color: '#3c3c3c'
 	},
 
 	label: {
 		display: 'block',
-		
+		marginBottom: '5px'
 	}
 };
