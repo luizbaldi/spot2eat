@@ -1,8 +1,15 @@
+/*
+ * Dependencies
+ */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import FullScreenContainer from '../../components/full-screen-container';
 import axios from 'axios';
 
-class Login extends Component {
+/*
+ * Component
+ */
+export default class LoginScreen extends Component {
 	constructor(props) {
 		super(props);
 
@@ -51,28 +58,45 @@ class Login extends Component {
 	
 	render() {
 		return (
-			<div className="app-container screen-login">
-				<div className="panel vertically-center text-center">
-					<h4>spot2eat</h4>
-					<form>
-						Username:
-						<br />
-						<input type="text" name="username" onChange={this.onFieldChange} />
-						<br />
-						Senha:
-						<br />
-						<input type="password" name="password" onChange={this.onFieldChange} />
-						<br />
-						<button onClick={this.validateLogin} type="button">Login</button>
-						<hr />
-						<Link to="/signup">
-							<button type="button">Cadastre-se</button>
-						</Link>
-					</form>
-				</div>
-			</div>
+			<FullScreenContainer style={styles.page}>
+				<h1>Spot2Eat</h1>
+				<form style={styles.form}>
+					<label htmlFor="username">E-mail:</label>
+					<input style={styles.input} name="username" onChange={this.onFieldChange} />
+
+					<label htmlFor="password">Senha:</label>
+					<input style={styles.input} name="password" onChange={this.onFieldChange} />
+
+					<button onClick={this.validateLogin} type="button">Login</button>
+					<Link to="/signup">
+						<span>Ou crie uma conta clicando aqui</span>
+					</Link>
+				</form>
+			</FullScreenContainer>
 		);
 	}
 }
 
-export default Login;
+const styles = {
+	page: {
+		background: 'url(img/blue-people-bg.jpg) no-repeat',
+		backgroundPosition: 'center center',
+		backgroundSize: 'cover'
+	},
+
+	form: {
+		maxWidth: '450px',
+		width: '100%'
+	},
+
+	input: {
+		background: 'white',
+		height: '44px',
+		color: '#3c3c3c'
+	},
+
+	label: {
+		display: 'block',
+		
+	}
+};
