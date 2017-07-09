@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FullScreenContainer from '../../components/FullScreenContainer';
-import Input from '../../components/Input';
 import axios from 'axios';
 
 /*
@@ -32,6 +31,7 @@ class LoginScreen extends Component {
 							currentUser = user;
 							return true;
 						}
+						return false;
 					})
 					if (isLoginValid) {
 						alert(`Welcome ${currentUser.name} :)`);
@@ -59,18 +59,19 @@ class LoginScreen extends Component {
 			<FullScreenContainer style={styles.page}>
 				<h1>Spot2Eat</h1>
 				<form style={styles.form}>
-					<Input type={Input.Types.TEXT}
-						style={styles.input}
+					<input style={styles.input}
 						placeholder="Username"
 						onChange={this.onFieldChange}
 						name="username" />
-					<Input type={Input.Types.PASSWORD}
+
+					<input type="password"
 						style={styles.input}
 						placeholder="Senha"
 						onChange={this.onFieldChange}
 						name="password" />
-					<button onClick={this.validateLogin} type="button">Login</button>
-					<Link to="/signup"><span>Ou crie uma conta clicando aqui</span></Link>
+
+					<button style={styles.loginButton} onClick={this.validateLogin} type="button">Login</button>
+					<Link style={styles.signUp} to="/signup"><span>Ou crie uma conta clicando aqui</span></Link>
 				</form>
 			</FullScreenContainer>
 		);
@@ -82,7 +83,8 @@ const styles = {
 		background: 'url(img/blue-people-bg.jpg) no-repeat',
 		backgroundPosition: 'center center',
 		backgroundSize: 'cover',
-		color: 'white'
+		color: 'white',
+		padding: '25px'
 	},
 
 	form: {
@@ -91,16 +93,33 @@ const styles = {
 	},
 
 	input: {
+		background: 'white',
 		border: 'none',
-		borderBottom: '1px solid grey',
+		borderRadius: '22px',
+		boxShadow: '0 2px 5px rgba(0, 0, 0, .5)',
 		display: 'block',
 		height: '44px',
-		color: '#3c3c3c'
+		fontSize: '16px',
+		marginBottom: '7px',
+		padding: '0 22px',
+		width: '100%'
 	},
 
-	label: {
-		display: 'block',
-		marginBottom: '5px'
+	loginButton: {
+		background: '#1b998b',
+		border: 'none',
+		borderRadius: '22px',
+		boxShadow: '0 2px 5px rgba(0, 0, 0, .5)',
+		color: 'white',
+		height: '44px',
+		fontSize: '16px',
+		padding: '0 22px',
+		width: '100%'
+	},
+
+	signUp: {
+		color: 'white',
+		textDecoration: 'none'
 	}
 };
 
