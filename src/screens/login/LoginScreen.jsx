@@ -57,22 +57,33 @@ class LoginScreen extends Component {
 	render() {
 		return (
 			<FullScreenContainer style={styles.page}>
-				<h1>Spot2Eat</h1>
-				<form style={styles.form}>
-					<input style={styles.input}
-						placeholder="Username"
-						onChange={this.onFieldChange}
-						name="username" />
+				<div style={styles.content}>
+					<form style={styles.form}>
+						<img style={styles.logo} alt="Spot2Eat" src="img/color-logo-764x223.png"/>
+						<div style={styles.row}>
+							<input style={styles.input}
+								placeholder="Username"
+								onChange={this.onFieldChange}
+								name="username" />
+						</div>
 
-					<input type="password"
-						style={styles.input}
-						placeholder="Senha"
-						onChange={this.onFieldChange}
-						name="password" />
+						<div style={styles.row}>
+							<input type="password"
+								style={styles.input}
+								placeholder="Senha"
+								onChange={this.onFieldChange}
+								name="password" />
+						</div>
 
-					<button style={styles.loginButton} onClick={this.validateLogin} type="button">Login</button>
-					<Link style={styles.signUp} to="/signup"><span>Ou crie uma conta clicando aqui</span></Link>
-				</form>
+						<div style={styles.row}>
+							<button style={styles.loginButton} onClick={this.validateLogin} type="button">Login</button>
+						</div>
+
+						<div style={styles.row}>
+							<Link style={styles.signUp} to="/signup"><span>Ou crie uma conta clicando aqui</span></Link>
+						</div>
+					</form>
+				</div>
 			</FullScreenContainer>
 		);
 	}
@@ -83,12 +94,28 @@ const styles = {
 		background: 'url(img/blue-people-bg.jpg) no-repeat',
 		backgroundPosition: 'center center',
 		backgroundSize: 'cover',
-		color: 'white',
-		padding: '25px'
+		color: 'white'
+	},
+
+	content: {
+		bottom: '10px',
+		left: '25px',
+		position: 'absolute',
+		right: '25px',
+	},
+
+	logo: {
+		marginBottom: '25px',
+		width: '100%'
 	},
 
 	form: {
 		maxWidth: '450px',
+		width: '100%'
+	},
+
+	row: {
+		marginBottom: '7px',
 		width: '100%'
 	},
 
@@ -100,7 +127,6 @@ const styles = {
 		display: 'block',
 		height: '44px',
 		fontSize: '16px',
-		marginBottom: '7px',
 		padding: '0 22px',
 		width: '100%'
 	},
@@ -119,7 +145,11 @@ const styles = {
 
 	signUp: {
 		color: 'white',
-		textDecoration: 'none'
+		display: 'inline-block',
+		lineHeight: '44px',
+		textDecoration: 'none',
+		textAlign: 'center',
+		width: '100%'
 	}
 };
 
