@@ -62,7 +62,7 @@ class LoginScreen extends Component {
 						<img style={styles.logo} alt="Spot2Eat" src="img/color-logo-764x223.png"/>
 						<div style={styles.row}>
 							<input style={styles.input}
-								placeholder="Username"
+								placeholder="Usuário"
 								onChange={this.onFieldChange}
 								name="username" />
 						</div>
@@ -110,6 +110,7 @@ const styles = {
 	},
 
 	form: {
+		margin: '0 auto',
 		maxWidth: '450px',
 		width: '100%'
 	},
