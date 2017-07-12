@@ -89,6 +89,9 @@ class LoginScreen extends Component {
 	}
 };
 
+/*
+ * Style
+ */
 const styles = {
 	page: {
 		background: 'url(img/blue-people-bg.jpg) no-repeat',
