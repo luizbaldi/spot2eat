@@ -17,6 +17,8 @@ class Header extends Component {
 		};
 
 		this.onToggleSidebar = this.onToggleSidebar.bind(this);
+		this.onManageSpotsClick = this.onManageSpotsClick.bind(this);
+		this.onLogoutClick = this.onLogoutClick.bind(this);
 	}
 
 	onToggleSidebar() {
@@ -26,8 +28,19 @@ class Header extends Component {
 		});
 	}
 
+	onManageSpotsClick() {
+		this.props.history.push('/manageSpots');
+	}
+
+	onLogoutClick() {
+		// @toDo: end user session
+		this.props.history.push('/');
+	}
+
 	render() {
-		let sidebar = <SidebarContent />;
+		let sidebar = <SidebarContent
+							onManageSpotsClick={this.onManageSpotsClick}
+							onLogoutClick={this.onLogoutClick} />;
 		const sidebarProps = {
 			sidebar: sidebar,
 			open: this.state.sidebarOpen,
@@ -37,10 +50,10 @@ class Header extends Component {
 		};
 		return (
 			<div>
+				<Sidebar {...sidebarProps} >
+					<b style={styles.title}>{this.props.screenName}</b>
+				</Sidebar>
 				<header onClick={this.onToggleSidebar} style={styles.header} >
-					<Sidebar {...sidebarProps} >
-						<b style={styles.title}>{this.props.screenName}</b>
-					</Sidebar>
 				</header>
 			</div>
 		);

@@ -33,7 +33,7 @@ class Dashboard extends Component {
 	render() {
 		return (
 			<FullScreenContainer>
-				<Header screenName="Dashboard" />
+				<Header screenName="Dashboard" {...this.props} />
 				<div style={styles.content}>
 					<p>Clique no botão abaixo para escolher o local</p>
 					<button onClick={this.generateRandomSpot}>Escolher</button>
