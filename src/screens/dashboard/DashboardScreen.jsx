@@ -31,7 +31,7 @@ class Dashboard extends Component {
 	}
 	render() {
 		return (
-			<FullScreenContainer {...this.props} showHeader>
+			<FullScreenContainer {...this.props} showHeader screenName="Dashboard">
 				<div style={styles.content}>
 					<p>Clique no botão abaixo para escolher o local</p>
 					<button onClick={this.generateRandomSpot}>Escolher</button>
@@ -45,6 +45,9 @@ class Dashboard extends Component {
 	}
 }
 
+/*
+ * Style
+ */
 const styles = {
 	content: {
 		marginTop: '50px',

@@ -14,13 +14,10 @@ class Footer extends Component {
 	}
 	render() {
 		return (
-			<footer className="bg-color-secundary">
-				{this.props.showBack ?
-					<div style={backButtonStyle} onClick={this.goBack}>
-						Voltar
-					</div>
-					: false
-				}
+			<footer className="bg-color-secundary" style={styles.footer}>
+				<div style={styles.backButton} onClick={this.goBack}>
+					Voltar
+				</div>
 			</footer>
 		);
 	}
@@ -29,12 +26,24 @@ class Footer extends Component {
 /*
  * Style
  */
-const backButtonStyle = {
-    width: "30%",
-    height: "100%",
-    fontSize: "1.4em",
-    lineHeight: "40px",
-    padding: "0 20px"
+const styles = {
+	footer: {
+		position: 'fixed',
+	    left: '0px',
+	    bottom: '0px',
+	    height:' 40px',
+	    width: '100%',
+	    background: '#E84855',
+	    color: '#9d9d9d'
+	},
+	backButton: {
+	    color: '#fafafa',
+	    width: "30%",
+	    height: "100%",
+	    lineHeight: "20px",
+	    padding: '10px 40px',
+	    display: 'inline-block'
+	}
 };
 
 export default Footer;

@@ -35,6 +35,7 @@ class LoginScreen extends Component {
 					})
 					if (isLoginValid) {
 						alert(`Welcome ${currentUser.name} :)`);
+						localStorage.setItem('user', JSON.stringify(currentUser));
 						this.props.history.push('/dashboard');
 					} else {
 						alert("Invalid login.");

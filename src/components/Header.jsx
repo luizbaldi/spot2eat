@@ -10,13 +10,21 @@ class Header extends Component {
 		super(props);
 
 		this.state = {
-			sidebarOpen: false
+			sidebarOpen: false,
+			user: null
 		};
 
 		this.onToggleSidebar = this.onToggleSidebar.bind(this);
 		this.onManageSpotsClick = this.onManageSpotsClick.bind(this);
 		this.onLogoutClick = this.onLogoutClick.bind(this);
 		this.onSelectPlaceClick = this.onSelectPlaceClick.bind(this);
+	}
+
+	componentWillMount() {
+		let user = localStorage.getItem('user');
+		this.setState({
+			user: JSON.parse(user)
+		});
 	}
 
 	onToggleSidebar() {
@@ -31,7 +39,7 @@ class Header extends Component {
 	}
 
 	onLogoutClick() {
-		// @toDo: end user session
+		localStorage.setItem('user', null);
 		this.props.history.push('/');
 	}
 
@@ -41,6 +49,7 @@ class Header extends Component {
 
 	render() {
 		let sidebar = <SidebarContent
+							user={this.state.user}
 							onManageSpotsClick={this.onManageSpotsClick}
 							onLogoutClick={this.onLogoutClick}
 							onSelectPlaceClick={this.onSelectPlaceClick} />;

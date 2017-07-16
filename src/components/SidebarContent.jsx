@@ -1,10 +1,10 @@
 import React from 'react';
 
-const SidebarContent = ({onManageSpotsClick, onLogoutClick, onSelectPlaceClick}) => {
+const SidebarContent = ({user, onManageSpotsClick, onLogoutClick, onSelectPlaceClick}) => {
 	return (
 		<div style={styles.menu}>
 			<div style={styles.menuItem}>
-				Bem vindo, User
+				Bem vindo, {user.name}
 			</div>
 			<hr />
 			<ul>

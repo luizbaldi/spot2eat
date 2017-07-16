@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Footer from '../../components/Footer';
+import FullScreenContainer from '../../components/FullScreenContainer';
 
 /*
  * Component
@@ -65,7 +66,7 @@ class SignUp extends Component {
 
 	render() {
 		return (
-			<div className="app-container bg-color-default">
+			<FullScreenContainer {...this.props} showFooter>
 				<div className="panel vertically-center text-center">
 					<form>
 						Nome:
@@ -83,8 +84,7 @@ class SignUp extends Component {
 						<button onClick={this.signUp} type="button">Cadastrar</button>
 					</form>
 				</div>
-				<Footer {...this.props} showBack />
-			</div>
+			</FullScreenContainer>
 		);
 	}
 };
