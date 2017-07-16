@@ -10,15 +10,13 @@ class Header extends Component {
 		super(props);
 
 		this.state = {
-			sidebarOpen: false,
-			transitions: true,
-			touch: true,
-			shadow: true
+			sidebarOpen: false
 		};
 
 		this.onToggleSidebar = this.onToggleSidebar.bind(this);
 		this.onManageSpotsClick = this.onManageSpotsClick.bind(this);
 		this.onLogoutClick = this.onLogoutClick.bind(this);
+		this.onSelectPlaceClick = this.onSelectPlaceClick.bind(this);
 	}
 
 	onToggleSidebar() {
@@ -37,24 +35,27 @@ class Header extends Component {
 		this.props.history.push('/');
 	}
 
+	onSelectPlaceClick() {
+		this.props.history.push('/dashboard');
+	}
+
 	render() {
 		let sidebar = <SidebarContent
 							onManageSpotsClick={this.onManageSpotsClick}
-							onLogoutClick={this.onLogoutClick} />;
+							onLogoutClick={this.onLogoutClick}
+							onSelectPlaceClick={this.onSelectPlaceClick} />;
 		const sidebarProps = {
 			sidebar: sidebar,
-			open: this.state.sidebarOpen,
-			touch: this.state.touch,
-			shadow: this.state.shadow,
-			transitions: this.state.transitions
+			open: this.state.sidebarOpen
 		};
 		return (
 			<div>
 				<Sidebar {...sidebarProps} >
-					<b style={styles.title}>{this.props.screenName}</b>
+					<header onClick={this.onToggleSidebar} style={styles.header}>
+						<b style={styles.title}>{this.props.screenName}</b>
+					</header>
+					{this.props.children}
 				</Sidebar>
-				<header onClick={this.onToggleSidebar} style={styles.header} >
-				</header>
 			</div>
 		);
 	}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from '../../components/Header';
 import FullScreenContainer from '../../components/FullScreenContainer';
 
 /*
@@ -32,8 +31,7 @@ class Dashboard extends Component {
 	}
 	render() {
 		return (
-			<FullScreenContainer>
-				<Header screenName="Dashboard" {...this.props} />
+			<FullScreenContainer {...this.props} showHeader>
 				<div style={styles.content}>
 					<p>Clique no botão abaixo para escolher o local</p>
 					<button onClick={this.generateRandomSpot}>Escolher</button>
@@ -49,7 +47,9 @@ class Dashboard extends Component {
 
 const styles = {
 	content: {
-		marginTop: '50px'
+		marginTop: '50px',
+		width: '100%',
+		textAlign: 'center'
 	}
 }
 

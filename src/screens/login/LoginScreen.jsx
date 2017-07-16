@@ -56,7 +56,7 @@ class LoginScreen extends Component {
 
 	render() {
 		return (
-			<FullScreenContainer style={styles.page}>
+			<FullScreenContainer {...this.props} style={styles.page}>
 				<div style={styles.content}>
 					<form style={styles.form}>
 						<img style={styles.logo} alt="Spot2Eat" src="img/color-logo-764x223.png"/>

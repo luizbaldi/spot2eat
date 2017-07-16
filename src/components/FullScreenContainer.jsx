@@ -1,28 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Header from './Header';
 
 /*
  * Component
  */
-class FullScreenContainer extends Component {
-	render() {
-		let newStyle = Object.assign(style, this.props.style);
-		return (
-			<div style={newStyle}>
-				{this.props.children}
-			</div>
-		);
-	}
-};
+const FullScreenContainer = (props) => {
+	let newStyle = Object.assign(customStyle, props.style);
+	return (
+		<div style={newStyle}>
+			{props.showHeader ?
+				<Header screenName="Dashboard" {...props}>
+					{props.children}
+				</Header>
+				: <div>
+					{props.children}
+				</div>
+			}
+		</div>
+	);
+}
 
 /*
  * Style
  */
-const style = {
+const customStyle = {
 	position: 'absolute',
 	top: 0,
 	bottom: 0,
 	width: '100%',
-	'overflowY': 'hidden'
+	overflowY: 'hidden'
 };
 
 export default FullScreenContainer;
