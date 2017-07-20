@@ -33,7 +33,7 @@ const styles = {
 		top: 0,
 		bottom: 0,
 		width: '100%',
-		overflowY: 'hidden'
+		overflowY: 'auto'
 	}
 };
 

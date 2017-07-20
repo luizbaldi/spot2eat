@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Footer from '../../components/Footer';
 import FullScreenContainer from '../../components/FullScreenContainer';
 
 /*
