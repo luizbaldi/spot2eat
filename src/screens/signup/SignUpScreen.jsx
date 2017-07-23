@@ -37,7 +37,7 @@ class SignUp extends Component {
 					});
 					if (isUsernameAvaible) {
 						let newUser = {
-							id: data[data.length -1].id + 1,
+							id: data[data.length - 1].id + 1,
 							name: name,
 							username: username,
 							password: password

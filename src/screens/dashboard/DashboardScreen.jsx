@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FullScreenContainer from '../../components/FullScreenContainer';
+import axios from 'axios';
 
 /*
  * Component
@@ -15,16 +16,16 @@ class Dashboard extends Component {
 		this.generateRandomSpot = this.generateRandomSpot.bind(this);
 	}
 	generateRandomSpot() {
-		const randomSpots = [
-			'Serjão',
-			'Alberto',
-			'Aguinaldo',
-			'Alagoas'
-		];
-		let randomSpot = randomSpots[this.getRandomInt(0, randomSpots.length -1)];
-		this.setState({
-			selectedSpot: randomSpot
-		});
+		axios.get("https://api.myjson.com/bins/t7mlr")
+			.then(({data}) => {
+				let randomSpot = data[this.getRandomInt(0, data.length -1)];
+				this.setState({
+					selectedSpot: randomSpot
+				});
+			})
+			.catch(err => {
+				alert('Error generating your random spot. Try again later.');
+			})
 	}
 	getRandomInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -36,7 +37,7 @@ class Dashboard extends Component {
 					<p>Clique no botão abaixo para escolher o local</p>
 					<button onClick={this.generateRandomSpot}>Escolher</button>
 					{this.state.selectedSpot ?
-						<p>Local selecionado: {this.state.selectedSpot}</p>
+						<p>Local selecionado: {this.state.selectedSpot.name}</p>
 						: null
 					}
 				</div>
