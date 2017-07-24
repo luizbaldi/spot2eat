@@ -55,7 +55,7 @@ class Grid extends Component {
             <div>
                 <button onClick={() => this.onModalStateChange('open')}>Add new spot</button>
                 { this.props.selectedSpots.length ?
-                    <button>Remove selected spots</button>
+                    <button onClick={this.props.onRemoveSpots}>Remove selected spots</button>
                     : null
                 }
                 { this.props.spots.length ?

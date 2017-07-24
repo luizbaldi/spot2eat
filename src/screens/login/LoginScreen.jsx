@@ -25,15 +25,10 @@ class LoginScreen extends Component {
 		if (username && password) {
 	  		axios.get("https://api.myjson.com/bins/1gzisn")
 				.then(response => {
-					let currentUser;
-					let isLoginValid = response.data.some(user => {
-						if (username === user.username && password === user.password) {
-							currentUser = user;
-							return true;
-						}
-						return false;
-					})
-					if (isLoginValid) {
+					let currentUser = response.data.find(user => {
+						return username === user.username && password === user.password;
+					});
+					if (currentUser) {
 						alert(`Welcome ${currentUser.name} :)`);
 						localStorage.setItem('user', JSON.stringify(currentUser));
 						this.props.history.push('/dashboard');
