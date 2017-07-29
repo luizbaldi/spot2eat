@@ -34,13 +34,13 @@ class Dashboard extends Component {
 		return (
 			<FullScreenContainer {...this.props} showHeader screenName="Dashboard">
 				<div style={styles.content}>
-					<button style={styles.button} onClick={this.generateRandomSpot}>Sortear local</button>
 					{this.state.selectedSpot ?
 						<div style={styles.result}>
 							<p style={styles.resultText}>Local: {this.state.selectedSpot.name}</p>
 						</div>
 						: null
 					}
+					<button style={styles.button} onClick={this.generateRandomSpot}>Sortear local</button>
 				</div>
 			</FullScreenContainer>
 		);
@@ -55,7 +55,9 @@ const styles = {
 		marginTop: '60px',
 		width: '100%',
 		textAlign: 'center',
-		padding: '25px'
+		padding: '25px',
+		position: 'absolute',
+		bottom: '15px'
 	},
 	button: {
 		background: '#E84855',
@@ -67,13 +69,13 @@ const styles = {
 		fontSize: '16px',
 		padding: '0 22px',
 		width: '100%',
-		marginBottom: '7px'
 	},
 	result: {
 		background: 'rgba(0, 0, 0, 0.4)',
 		height: '44px',
 		padding: '15px',
-		borderRadius: '22px'
+		borderRadius: '22px',
+		marginBottom: '7px'
 	},
 	resultText: {
 		color: 'white'
