@@ -75,17 +75,20 @@ class Header extends Component {
  */
 const styles = {
 	header: {
+		padding: '17px 20px',
 		position: 'fixed',
 	    left: '0px',
 	    top: '0px',
-	    height:' 40px',
+	    height: '50px',
 	    width: '100%',
 	    background: '#E84855',
-	    color: '#9d9d9d'
+		color: '#9d9d9d',
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis'
 	},
 	title: {
 		color: '#fafafa',
-	    padding: '10px 40px',
 	    height: '100%',
 	    display: 'inline-block'
 	}
