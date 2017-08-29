@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import FullScreenContainer from '../../components/FullScreenContainer';
+import Button from '../../components/Button';
 
 /*
  * Component
@@ -66,25 +67,75 @@ class SignUp extends Component {
 	render() {
 		return (
 			<FullScreenContainer {...this.props} showFooter>
-				<div className="panel vertically-center text-center">
-					<form>
-						Nome:
-						<br />
-						<input type="text" name="name" onChange={this.onFieldChange} />
-						<br />
-						Username:
-						<br />
-						<input type="text" name="username" onChange={this.onFieldChange} />
-						<br />
-						Senha:
-						<br />
-						<input type="password" name="password" onChange={this.onFieldChange} />
-						<br />
-						<button onClick={this.signUp} type="button">Cadastrar</button>
+				<div style={styles.content}>
+					<form style={styles.form}>
+						<div style={styles.row}>
+							<input style={styles.input}
+								placeholder="Nome"
+								onChange={this.onFieldChange}
+								name="name"
+							/>
+						</div>
+						<div style={styles.row}>
+							<input style={styles.input}
+								placeholder="Username"
+								onChange={this.onFieldChange}
+								name="username"
+							/>
+						</div>
+						<div style={styles.row}>
+							<input style={styles.input}
+								placeholder="Senha"
+								onChange={this.onFieldChange}
+								name="password"
+							/>
+						</div>
+						<div style={styles.row}>
+							<Button 
+								label="Cadastrar"
+								onClick={this.signUp}
+							/>
+						</div>
 					</form>
 				</div>
 			</FullScreenContainer>
 		);
+	}
+};
+
+/*
+ * Style
+ */
+const styles = {
+
+	content: {
+		bottom: '50px',
+		left: '25px',
+		position: 'absolute',
+		right: '25px',
+	},
+
+	form: {
+		margin: '0 auto',
+		maxWidth: '450px',
+		width: '100%'
+	},
+
+	row: {
+		marginBottom: '7px',
+		width: '100%'
+	},
+
+	input: {
+		background: 'white',
+		border: 'none',
+		borderRadius: '22px',
+		boxShadow: '0 2px 5px rgba(0, 0, 0, .5)',
+		display: 'block',
+		height: '44px',
+		fontSize: '16px',
+		padding: '0 22px',
+		width: '100%'
 	}
 };
 

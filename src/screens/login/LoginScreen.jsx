@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FullScreenContainer from '../../components/FullScreenContainer';
+import Button from '../../components/Button';
 import axios from 'axios';
 
 /*
@@ -72,7 +73,10 @@ class LoginScreen extends Component {
 						</div>
 
 						<div style={styles.row}>
-							<button style={styles.loginButton} onClick={this.validateLogin} type="button">Login</button>
+							<Button 
+								label="Login"
+								onClick={this.validateLogin}
+							/>
 						</div>
 
 						<div style={styles.row}>
@@ -125,18 +129,6 @@ const styles = {
 		borderRadius: '22px',
 		boxShadow: '0 2px 5px rgba(0, 0, 0, .5)',
 		display: 'block',
-		height: '44px',
-		fontSize: '16px',
-		padding: '0 22px',
-		width: '100%'
-	},
-
-	loginButton: {
-		background: '#1b998b',
-		border: 'none',
-		borderRadius: '22px',
-		boxShadow: '0 2px 5px rgba(0, 0, 0, .5)',
-		color: 'white',
 		height: '44px',
 		fontSize: '16px',
 		padding: '0 22px',
