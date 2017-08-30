@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from 'react-sidebar';
 import SidebarContent from './SidebarContent';
+import { TiThMenu } from 'react-icons/lib/ti'
 
 /*
  * Component
@@ -61,6 +62,9 @@ class Header extends Component {
 			<div>
 				<Sidebar {...sidebarProps} >
 					<header onClick={this.onToggleSidebar} style={styles.header}>
+						<div style={styles.headerIcon}>
+							<TiThMenu />
+						</div>
 						<b style={styles.title}>{this.props.screenName}</b>
 					</header>
 					{this.props.children}
@@ -90,7 +94,14 @@ const styles = {
 	title: {
 		color: '#fafafa',
 	    height: '100%',
-	    display: 'inline-block'
+		display: 'inline-block',
+		marginLeft: '30px'
+	},
+	headerIcon: {
+		color: '#fafafa',
+		margin: '-2px -2px',
+		position: 'absolute',
+		fontSize: '1.3em'
 	}
 };
 

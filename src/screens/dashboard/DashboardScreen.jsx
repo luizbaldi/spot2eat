@@ -18,10 +18,17 @@ class Dashboard extends Component {
 	generateRandomSpot() {
 		axios.get("https://api.myjson.com/bins/t7mlr")
 			.then(({data}) => {
-				let randomSpot = data[this.getRandomInt(0, data.length -1)];
-				this.setState({
-					selectedSpot: randomSpot
-				});
+				const currentUser = JSON.parse(localStorage.getItem('user'));
+				const avaibleSpots = data.filter(spot => spot.userId === currentUser.id);
+
+				if (avaibleSpots.length) {
+					let randomSpot = avaibleSpots[this.getRandomInt(0, avaibleSpots.length -1)];
+					this.setState({
+						selectedSpot: randomSpot
+					});
+				} else {
+					alert('Você ainda não possui nenhum local cadastrado. Adicione locais clicando no menu lateral em Gerenciar Restaurantes :)');
+				}
 			})
 			.catch(err => {
 				alert('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');

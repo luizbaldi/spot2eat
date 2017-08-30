@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { TiChevronLeft } from 'react-icons/lib/ti'
 
 /*
  * Component
@@ -16,7 +17,10 @@ class Footer extends Component {
 		return (
 			<footer className="bg-color-secundary" style={styles.footer}>
 				<div style={styles.backButton} onClick={this.goBack}>
-					Voltar
+					<div style={styles.backIcon}>
+						<TiChevronLeft />
+					</div>
+					<span style={styles.backText}>Voltar</span>
 				</div>
 			</footer>
 		);
@@ -43,6 +47,14 @@ const styles = {
 	    lineHeight: "20px",
 	    padding: '10px 40px',
 	    display: 'inline-block'
+	},
+	backIcon: {
+		position: 'absolute',
+		bottom: '10px',
+		fontSize: '1.2em'
+	},
+	backText: {
+		marginLeft: '28px'
 	}
 };
 
