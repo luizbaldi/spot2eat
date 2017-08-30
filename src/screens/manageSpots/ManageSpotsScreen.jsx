@@ -74,7 +74,7 @@ class ManageSpotsScreen extends Component {
 	}
 	render() {
 		return (
-			<FullScreenContainer {...this.props} showHeader showFooter screenName="Gerenciar Restaurantes">
+			<FullScreenContainer {...this.props} showHeader showFooter screenName="Gerenciar Locais">
 				<div style={styles.content}>
 					<Grid 
 						spots={this.state.spotsData}

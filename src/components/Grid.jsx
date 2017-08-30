@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AddNewSpotModal from './modal/AddNewSpot';
 import axios from 'axios';
+import Button from './Button';
 
 class Grid extends Component {
     constructor(props) {
@@ -35,17 +36,17 @@ class Grid extends Component {
                 data.push(newSpot);
                 axios.put("https://api.myjson.com/bins/t7mlr", data)
                     .then(response => {
-                        alert("Spoted added successfully :)");
+                        alert("Local adicionado com sucesso :)");
                         this.onModalStateChange('close');
                         this.props.reloadSpots();
                     })
                     .catch(err => {
-                        alert("Error saving the new spot. Try again later.");
+                        alert("Erro ao salvar novo local. Tente novamente mais tarde :(");
 				        this.onModalStateChange('close');
                     });
             })
             .catch(err => {
-				alert("Error saving the new spot. Try again later.");
+				alert("Erro ao salvar novo local. Tente novamente mais tarde.");
 				this.onModalStateChange('close');
 			});
     }
@@ -53,23 +54,39 @@ class Grid extends Component {
         const columns = ['', 'Id', 'Nome'];
         return (
             <div>
-                <button onClick={() => this.onModalStateChange('open')}>Add new spot</button>
+                <div style={this.props.selectedSpots.length ? style.halfButton : style.fullButton}>
+                    <Button
+                        label={"Adicionar novo local"}
+                        onClick={() => this.onModalStateChange('open')}
+                    />
+                </div>
                 { this.props.selectedSpots.length ?
-                    <button onClick={this.props.onRemoveSpots}>Remove selected spots</button>
+                    <div style={style.halfButton}>
+                        <Button
+                            label={"Remover locais selecionados"}
+                            onClick={this.props.onRemoveSpots}
+                        />
+                    </div>
                     : null
                 }
                 { this.props.spots.length ?
-                    <table>
+                    <table style={style.table}>
                         <thead>
-                            <tr>
+                            <tr style={style.head}>
                                 {columns.map((column, idx) => <th key={idx}>{column}</th>)}
                             </tr>
                         </thead>
                         <tbody>
                                 {this.props.spots.map((spot, index) => {
                                     return (
-                                        <tr key={`spot_${index}`}>
-                                            <td><input type="checkbox" onClick={() => this.props.onSelectSpot(spot)} /></td>
+                                        <tr key={`spot_${index}`} style={style.row}>
+                                            <td>
+                                                <input 
+                                                    type="checkbox" 
+                                                    onClick={() => this.props.onSelectSpot(spot)} 
+                                                    style={style.checkbox}
+                                                />
+                                            </td>
                                             <td>{spot.spotId}</td>
                                             <td>{spot.name}</td>
                                         </tr>
@@ -77,7 +94,7 @@ class Grid extends Component {
                                 })}
                         </tbody>
                     </table>
-                : <div>Oops, seems like you don't have any spots registered. Add new spots clicking above :)</div>
+                : <div>Oops, parece que você ainda não possui nenhum local cadastrado. Adicione novos locais clicando acima :)</div>
                 }
                 <AddNewSpotModal 
                     isOpen={this.state.isAddSpotModalOpen}
@@ -87,5 +104,44 @@ class Grid extends Component {
         );
     }
 };
+
+/*
+ *
+ */
+const style = {
+    table: {
+        width: '98%',
+        margin: '8px',
+        textAlign: 'center'
+    },
+    head: {
+        fontWeight: 600,
+        height: '40px',
+        lineHeight: '38px',
+        backgroundColor: 'rgba(239, 149, 156, 0.5)',
+        border: '1px solid #bf8e8e',
+        borderRadius: '20px'
+    },
+    row: {
+        height: '38px',
+        lineHeight: '36px',
+        borderBottom: '1px solid #bf8e8e'
+    },
+    checkbox: {
+        width: '16px',
+        height: '16px'
+    },
+    fullButton: {
+        width: '96%',
+        padding: '10px 0',
+        marginLeft: '2%'
+    },
+    halfButton: {
+        width: '48%',
+        padding: '10px 0',
+        display: 'inline-block',
+        marginRight: '1%'
+    }
+}
 
 export default Grid;

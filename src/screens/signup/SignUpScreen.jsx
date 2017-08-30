@@ -46,21 +46,22 @@ class SignUp extends Component {
 						data.push(newUser);
 						axios.put("https://api.myjson.com/bins/1gzisn", data)
 							.then(response => {
-								alert("Success! Welcome to the boat :)");
+								localStorage.setItem('user', JSON.stringify(newUser));
 								this.props.history.push('/dashboard');
+								alert("Successo! Bem vindo ao barco :)");
 							})
 							.catch(err => {
-								alert("Error during the creation of new user. Please try again.");
+								alert("Error durante ao realizar cadastro. Tente novamente mais tarde.");
 							});
 					} else {
-						alert("Username already taken, try another one.");
+						alert("O usuário escolhido já está em uso, tente outro.");
 					}
 				})
 				.catch(err => {
-					alert("Oops, something wrong happened :(");
+					alert("Oops, algo de errado aconteceu. Tente novamente mais tarde");
 				});
 		} else {
-			alert("Please, complete all fields to procced.")
+			alert("Por favor, preencha todos os campos para prosseguir.")
 		}
 	}
 
@@ -68,6 +69,7 @@ class SignUp extends Component {
 		return (
 			<FullScreenContainer {...this.props} showFooter>
 				<div style={styles.content}>
+					<span style={styles.title}>Cadastre-se abaixo :)</span>
 					<form style={styles.form}>
 						<div style={styles.row}>
 							<input style={styles.input}
@@ -113,6 +115,7 @@ const styles = {
 		left: '25px',
 		position: 'absolute',
 		right: '25px',
+		textAlign: 'center'
 	},
 
 	form: {
@@ -136,6 +139,12 @@ const styles = {
 		fontSize: '16px',
 		padding: '0 22px',
 		width: '100%'
+	},
+
+	title: {
+		display: 'block',
+		marginBottom: '32px',
+		fontSize: '1.4em'
 	}
 };
 

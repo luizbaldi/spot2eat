@@ -24,7 +24,7 @@ class Dashboard extends Component {
 				});
 			})
 			.catch(err => {
-				alert('Error generating your random spot. Try again later.');
+				alert('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');
 			})
 	}
 	getRandomInt(min, max) {

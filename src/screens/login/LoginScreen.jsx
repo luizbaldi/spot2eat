@@ -13,7 +13,9 @@ class LoginScreen extends Component {
 
 		this.state = {
 			username: '',
-			password: ''
+			password: '',
+			showAlert: true,
+			alertText: ''
 		};
 
 		this.validateLogin = this.validateLogin.bind(this);
@@ -30,18 +32,18 @@ class LoginScreen extends Component {
 						return username === user.username && password === user.password;
 					});
 					if (currentUser) {
-						alert(`Welcome ${currentUser.name} :)`);
+						alert(`Bem vindo ${currentUser.name} :)`);
 						localStorage.setItem('user', JSON.stringify(currentUser));
 						this.props.history.push('/dashboard');
 					} else {
-						alert("Invalid login.");
+						alert("Login inválido.")
 					}
 				})
 				.catch(err => {
-					alert("Error during loggin in :(");
+					alert("Erro ao realizar login :(")
 				});
 		} else {
-			alert("Please type your e-mail and password to procced :)");
+			alert("Por favor digite seu e-mail e senha para prosseguir :)")
 		}
 	}
 
