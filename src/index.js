@@ -4,10 +4,11 @@ import App from './screens/App';
 import { BrowserRouter } from 'react-router-dom';
 
 /*
- * Styles
- */
+* Styles
+*/
 import 'css-reset/reset.css';
 import './style/general.css';
+import 'sweetalert/dist/sweetalert.css';
 
 
 ReactDOM.render(

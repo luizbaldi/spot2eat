@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FullScreenContainer from '../../components/FullScreenContainer';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 /*
  * Component
@@ -36,12 +37,12 @@ class Dashboard extends Component {
 						selectedSpot: randomSpot
 					});
 				} else {
-					alert('Você ainda não possui nenhum local cadastrado. Adicione locais clicando no menu lateral em Gerenciar Restaurantes :)');
+					swal('Você ainda não possui nenhum local cadastrado. Adicione locais clicando no menu lateral em Gerenciar Restaurantes :)');
 				}
 			})
 			.catch(err => {
 				this.setLoadingState(false);
-				alert('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');
+				swal('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');
 			})
 	}
 	getRandomInt(min, max) {

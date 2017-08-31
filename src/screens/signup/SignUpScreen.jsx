@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import FullScreenContainer from '../../components/FullScreenContainer';
 import Button from '../../components/Button';
+import swal from 'sweetalert';
 
 /*
  * Component
@@ -48,20 +49,20 @@ class SignUp extends Component {
 							.then(response => {
 								localStorage.setItem('user', JSON.stringify(newUser));
 								this.props.history.push('/dashboard');
-								alert("Successo! Bem vindo ao barco :)");
+								swal("Successo! Bem vindo ao barco :)");
 							})
 							.catch(err => {
-								alert("Error durante ao realizar cadastro. Tente novamente mais tarde.");
+								swal("Error durante ao realizar cadastro. Tente novamente mais tarde.");
 							});
 					} else {
-						alert("O usuário escolhido já está em uso, tente outro.");
+						swal("O usuário escolhido já está em uso, tente outro.");
 					}
 				})
 				.catch(err => {
-					alert("Oops, algo de errado aconteceu. Tente novamente mais tarde");
+					swal("Oops, algo de errado aconteceu. Tente novamente mais tarde");
 				});
 		} else {
-			alert("Por favor, preencha todos os campos para prosseguir.")
+			swal("Por favor, preencha todos os campos para prosseguir.")
 		}
 	}
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FullScreenContainer from '../../components/FullScreenContainer';
 import Grid from '../../components/Grid';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 /*
  * Component
@@ -58,7 +59,7 @@ class ManageSpotsScreen extends Component {
 			})
 			.catch(err => {
 				this.setLoadingState(false);
-				alert("Erro ao carregar restaurantes.");
+				swal("Erro ao carregar restaurantes.");
 				this.props.history.goBack();
 			});
 	}
@@ -73,7 +74,7 @@ class ManageSpotsScreen extends Component {
 				axios.put("https://api.myjson.com/bins/t7mlr", updatedSpots)
 					.then(() => {
 						this.setLoadingState(false);
-						alert("Restaurantes removidos com sucesso.");
+						swal("Restaurantes removidos com sucesso.");
 						this.reloadSpots();
 						this.setState({
 							selectedSpots: []
@@ -82,7 +83,7 @@ class ManageSpotsScreen extends Component {
 			})
 			.catch(err => {
 				this.setLoadingState(false);
-				alert("Erro ao remover restaurantes.");
+				swal("Erro ao remover restaurantes.");
 			});
 	}
 	render() {

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import FullScreenContainer from '../../components/FullScreenContainer';
 import Button from '../../components/Button';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 /*
  * Component
@@ -15,7 +16,6 @@ class LoginScreen extends Component {
 			username: '',
 			password: '',
 			showAlert: true,
-			alertText: '',
 			isLoading: false
 		};
 
@@ -40,19 +40,19 @@ class LoginScreen extends Component {
 						return username === user.username && password === user.password;
 					});
 					if (currentUser) {
-						alert(`Bem vindo ${currentUser.name} :)`);
+						swal(`Bem vindo ${currentUser.name} :)`);
 						localStorage.setItem('user', JSON.stringify(currentUser));
 						this.props.history.push('/dashboard');
 					} else {
-						alert("Login inválido.")
+						swal("Login inválido.")
 					}
 				})
 				.catch(err => {
 					this.setLoadingState(false);
-					alert("Erro ao realizar login :(")
+					swal("Erro ao realizar login :(")
 				});
 		} else {
-			alert("Por favor digite seu e-mail e senha para prosseguir :)")
+			swal("Por favor digite seu e-mail e senha para prosseguir :)")
 		}
 	}
 	onFieldChange({target}) {
