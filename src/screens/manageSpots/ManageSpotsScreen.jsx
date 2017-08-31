@@ -12,12 +12,14 @@ class ManageSpotsScreen extends Component {
 
 		this.state = {
 			spotsData: [],
-			selectedSpots: []
+			selectedSpots: [],
+			isLoading: false
 		};
 
 		this.onSelectSpot = this.onSelectSpot.bind(this);
 		this.onRemoveSpots = this.onRemoveSpots.bind(this);
 		this.reloadSpots = this.reloadSpots.bind(this);
+		this.setLoadingState = this.setLoadingState.bind(this);
 	}
 	componentWillMount() {
 		this.reloadSpots();
@@ -38,9 +40,16 @@ class ManageSpotsScreen extends Component {
 			selectedSpots: selectedSpots
 		})
 	}
+	setLoadingState(loadingState) {
+		this.setState({
+			isLoading: loadingState
+		});
+	}
 	reloadSpots() {
+		this.setLoadingState(true);
 		axios.get("https://api.myjson.com/bins/t7mlr")
 			.then(({data}) => {
+				this.setLoadingState(false);
 				const currentUser = JSON.parse(localStorage.getItem('user'));
 				const spots = data.filter(spot => spot.userId === currentUser.id);
 				this.setState({
@@ -48,12 +57,14 @@ class ManageSpotsScreen extends Component {
 				});
 			})
 			.catch(err => {
+				this.setLoadingState(false);
 				alert("Erro ao carregar restaurantes.");
 				this.props.history.goBack();
 			});
 	}
 	onRemoveSpots() {
 		let selectedSpots = this.state.selectedSpots;
+		this.setLoadingState(true);
 		axios.get("https://api.myjson.com/bins/t7mlr")
 			.then(({data}) => {
 				let updatedSpots = data.filter(spot => {
@@ -61,6 +72,7 @@ class ManageSpotsScreen extends Component {
 				});
 				axios.put("https://api.myjson.com/bins/t7mlr", updatedSpots)
 					.then(() => {
+						this.setLoadingState(false);
 						alert("Restaurantes removidos com sucesso.");
 						this.reloadSpots();
 						this.setState({
@@ -69,12 +81,13 @@ class ManageSpotsScreen extends Component {
 					});
 			})
 			.catch(err => {
+				this.setLoadingState(false);
 				alert("Erro ao remover restaurantes.");
 			});
 	}
 	render() {
 		return (
-			<FullScreenContainer {...this.props} showHeader showFooter screenName="Gerenciar Locais">
+			<FullScreenContainer {...this.props} showHeader showFooter screenName="Gerenciar Locais" loadingState={this.state.isLoading}>
 				<div style={styles.content}>
 					<Grid 
 						spots={this.state.spotsData}

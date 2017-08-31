@@ -10,14 +10,23 @@ class Dashboard extends Component {
 		super(props);
 
 		this.state = {
-			selectedSpot: null
+			selectedSpot: null,
+			isLoading: false
 		};
 
 		this.generateRandomSpot = this.generateRandomSpot.bind(this);
+		this.setLoadingState = this.setLoadingState.bind(this);
+	}
+	setLoadingState(loadingState) {
+		this.setState({
+			isLoading: loadingState
+		});
 	}
 	generateRandomSpot() {
+		this.setLoadingState(true);
 		axios.get("https://api.myjson.com/bins/t7mlr")
 			.then(({data}) => {
+				this.setLoadingState(false);
 				const currentUser = JSON.parse(localStorage.getItem('user'));
 				const avaibleSpots = data.filter(spot => spot.userId === currentUser.id);
 
@@ -31,6 +40,7 @@ class Dashboard extends Component {
 				}
 			})
 			.catch(err => {
+				this.setLoadingState(false);
 				alert('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');
 			})
 	}
@@ -39,7 +49,7 @@ class Dashboard extends Component {
 	}
 	render() {
 		return (
-			<FullScreenContainer {...this.props} showHeader screenName="Dashboard">
+			<FullScreenContainer {...this.props} showHeader screenName="Dashboard" loadingState={this.state.isLoading}>
 				<div style={styles.content}>
 					{this.state.selectedSpot ?
 						<div style={styles.result}>

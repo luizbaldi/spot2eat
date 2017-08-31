@@ -15,19 +15,27 @@ class LoginScreen extends Component {
 			username: '',
 			password: '',
 			showAlert: true,
-			alertText: ''
+			alertText: '',
+			isLoading: false
 		};
 
 		this.validateLogin = this.validateLogin.bind(this);
 		this.onFieldChange = this.onFieldChange.bind(this);
+		this.setLoadingState = this.setLoadingState.bind(this);
 	}
-
+	setLoadingState(loadingState) {
+		this.setState({
+			isLoading: loadingState
+		});
+	}
 	validateLogin() {
 		let username = this.state.username;
 		let password = this.state.password;
 		if (username && password) {
+			this.setLoadingState(true);
 	  		axios.get("https://api.myjson.com/bins/1gzisn")
 				.then(response => {
+					this.setLoadingState(false);
 					let currentUser = response.data.find(user => {
 						return username === user.username && password === user.password;
 					});
@@ -40,22 +48,21 @@ class LoginScreen extends Component {
 					}
 				})
 				.catch(err => {
+					this.setLoadingState(false);
 					alert("Erro ao realizar login :(")
 				});
 		} else {
 			alert("Por favor digite seu e-mail e senha para prosseguir :)")
 		}
 	}
-
 	onFieldChange({target}) {
 		this.setState({
 			[target.name]: target.value
 		});
 	}
-
 	render() {
 		return (
-			<FullScreenContainer {...this.props} style={styles.page}>
+			<FullScreenContainer {...this.props} style={styles.page} loadingState={this.state.isLoading}>
 				<div style={styles.content}>
 					<form style={styles.form}>
 						<img style={styles.logo} alt="Spot2Eat" src="img/color-logo-764x223.png"/>
