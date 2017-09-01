@@ -37,7 +37,7 @@ class Dashboard extends Component {
 						selectedSpot: randomSpot
 					});
 				} else {
-					swal('Você ainda não possui nenhum local cadastrado. Adicione locais clicando no menu lateral em Gerenciar Restaurantes :)');
+					swal('Você ainda não possui nenhum local cadastrado :(');
 				}
 			})
 			.catch(err => {

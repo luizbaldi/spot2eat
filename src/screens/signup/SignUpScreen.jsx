@@ -14,26 +14,33 @@ class SignUp extends Component {
 		this.state = {
 			'name': '',
 			'username': '',
-			'password': ''
+			'password': '',
+			isLoading: false
 		};
 
 		this.onFieldChange = this.onFieldChange.bind(this);
 		this.signUp = this.signUp.bind(this);
+		this.setLoadingState = this.setLoadingState.bind(this);
 	}
-
+	setLoadingState(loadingState) {
+		this.setState({
+			isLoading: loadingState
+		});
+	}
 	onFieldChange({target}) {
 		this.setState({
 			[target.name]: target.value
 		});
 	}
-
 	signUp() {
 		let name = this.state.name;
 		let username = this.state.username;
 		let password = this.state.password;
 		if (name && username && password) {
+			this.setLoadingState(true);
 			axios.get("https://api.myjson.com/bins/1gzisn")
 				.then(({data}) => {
+					this.setLoadingState(false);
 					let isUsernameAvaible = !data.some(user => {
 						return username === user.username;
 					});
@@ -59,16 +66,16 @@ class SignUp extends Component {
 					}
 				})
 				.catch(err => {
+					this.setLoadingState(false);
 					swal("Oops, algo de errado aconteceu. Tente novamente mais tarde");
 				});
 		} else {
 			swal("Por favor, preencha todos os campos para prosseguir.")
 		}
 	}
-
 	render() {
 		return (
-			<FullScreenContainer {...this.props} showFooter>
+			<FullScreenContainer {...this.props} showFooter loadingState={this.state.isLoading}>
 				<div style={styles.content}>
 					<span style={styles.title}>Cadastre-se abaixo :)</span>
 					<form style={styles.form}>
