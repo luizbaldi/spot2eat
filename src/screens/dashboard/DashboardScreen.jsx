@@ -25,25 +25,36 @@ class Dashboard extends Component {
 	}
 	generateRandomSpot() {
 		this.setLoadingState(true);
-		axios.get("https://api.myjson.com/bins/t7mlr")
-			.then(({data}) => {
-				this.setLoadingState(false);
-				const currentUser = JSON.parse(localStorage.getItem('user'));
-				const avaibleSpots = data.filter(spot => spot.userId === currentUser.id);
-
-				if (avaibleSpots.length) {
-					let randomSpot = avaibleSpots[this.getRandomInt(0, avaibleSpots.length -1)];
-					this.setState({
-						selectedSpot: randomSpot
-					});
-				} else {
-					swal('Você ainda não possui nenhum local cadastrado :(');
-				}
-			})
-			.catch(err => {
-				this.setLoadingState(false);
-				swal('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');
-			})
+		this.playDrumsSound().then(() => {
+			axios.get("https://api.myjson.com/bins/t7mlr")
+				.then(({data}) => {
+					this.setLoadingState(false);
+					const currentUser = JSON.parse(localStorage.getItem('user'));
+					const avaibleSpots = data.filter(spot => spot.userId === currentUser.id);
+	
+					if (avaibleSpots.length) {
+						let randomSpot = avaibleSpots[this.getRandomInt(0, avaibleSpots.length -1)];
+						this.setState({
+							selectedSpot: randomSpot
+						});
+					} else {
+						swal('Você ainda não possui nenhum local cadastrado :(');
+					}
+				})
+				.catch(err => {
+					this.setLoadingState(false);
+					swal('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');
+				});
+		});
+	}
+	playDrumsSound() {
+		/* Plays audio to show result only after 2 secs (just a little drama) */
+		const drumsAudio = new Audio('http://sprott.physics.wisc.edu/wop/sounds/Drumroll-1.wav');
+		drumsAudio.play();
+		const promise = new Promise((resolve, reject) => {
+			setTimeout(() => resolve(), 2000);
+		});
+		return promise; 
 	}
 	getRandomInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -58,7 +69,12 @@ class Dashboard extends Component {
 						</div>
 						: null
 					}
-					<button style={styles.button} onClick={this.generateRandomSpot}>Sortear local</button>
+					<button 
+						style={styles.button}
+						onClick={this.generateRandomSpot}
+					>
+						Sortear local
+					</button>
 				</div>
 			</FullScreenContainer>
 		);
