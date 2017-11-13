@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import FullScreenContainer from '../../components/FullScreenContainer';
 import Button from '../../components/Button';
 import axios from 'axios';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 /*
  * Component

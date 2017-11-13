@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AddNewSpotModal from './modal/AddNewSpot';
 import axios from 'axios';
 import Button from './Button';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import Loader from './Loader';
 
 class Grid extends Component {

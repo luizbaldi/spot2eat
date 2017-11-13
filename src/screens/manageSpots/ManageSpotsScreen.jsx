@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FullScreenContainer from '../../components/FullScreenContainer';
 import Grid from '../../components/Grid';
 import axios from 'axios';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 /*
  * Component

@@ -4,7 +4,6 @@ import LoginScreen from './login/LoginScreen';
 import DashboardScreen from './dashboard/DashboardScreen';
 import SignUpScreen from './signup/SignUpScreen';
 import ManageSpotsScreen from './manageSpots/ManageSpotsScreen';
-
 class App extends Component {
 	render() {
 		return (

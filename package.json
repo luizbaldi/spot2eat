@@ -46,6 +46,8 @@
     "promise": "7.1.1",
     "react-dev-utils": "^3.0.0",
     "react-error-overlay": "^1.0.7",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "style-loader": "0.17.0",
     "sw-precache-webpack-plugin": "0.9.1",
     "url-loader": "0.5.8",
