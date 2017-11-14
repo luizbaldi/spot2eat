@@ -12,10 +12,7 @@ class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			selectedSpot: null,
-			isLoading: false
-		};
+		this.state = { isLoading: false };
 
 		this.generateRandomSpot = this.generateRandomSpot.bind(this);
 		this.setLoadingState = this.setLoadingState.bind(this);
@@ -27,27 +24,18 @@ class Dashboard extends Component {
 	}
 	generateRandomSpot() {
 		this.setLoadingState(true);
-		this.playDrumsSound().then(() => {
-			this.props.generateSpot().payload.then(spot => {
+		this.playDrumsSound()
+			.then(() => {
 				this.setLoadingState(false);
-				if (spot) {
-					this.setState({ selectedSpot: spot });
-				} else {
-					swal('Você ainda não possui nenhum local cadastrado :(');
-				}
-			})
-			.catch(err => {
-				this.setLoadingState(false);
-				swal('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');
+				this.props.generateSpot();
 			});
-		});
 	}
 	playDrumsSound() {
-		/* Plays audio to show result only after 2 secs (just a little drama) */
+		/* Plays audio to show result only after 1 sec (just a little drama) */
 		const drumsAudio = new Audio('http://sprott.physics.wisc.edu/wop/sounds/Drumroll-1.wav');
 		drumsAudio.play();
 		const promise = new Promise((resolve, reject) => {
-			setTimeout(() => resolve(), 2000);
+			setTimeout(() => resolve(), 1000);
 		});
 		return promise; 
 	}
@@ -55,9 +43,9 @@ class Dashboard extends Component {
 		return (
 			<FullScreenContainer {...this.props} showHeader screenName="Dashboard" loadingState={this.state.isLoading}>
 				<div style={styles.content}>
-					{this.state.selectedSpot ?
+					{this.props.currentSpot ?
 						<div style={styles.result}>
-							<p style={styles.resultText}>Local: {this.state.selectedSpot.name}</p>
+							<p style={styles.resultText}>Local: {this.props.currentSpot.name}</p>
 						</div>
 						: null
 					}
@@ -68,6 +56,7 @@ class Dashboard extends Component {
 						Sortear local
 					</button>
 				</div>
+				
 			</FullScreenContainer>
 		);
 	}
