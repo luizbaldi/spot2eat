@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import FullScreenContainer from '../../components/FullScreenContainer';
-import axios from 'axios';
 import swal from 'sweetalert2';
+import { generateSpot } from '../../actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 /*
  * Component
@@ -26,25 +28,18 @@ class Dashboard extends Component {
 	generateRandomSpot() {
 		this.setLoadingState(true);
 		this.playDrumsSound().then(() => {
-			axios.get("https://api.myjson.com/bins/t7mlr")
-				.then(({data}) => {
-					this.setLoadingState(false);
-					const currentUser = JSON.parse(localStorage.getItem('user'));
-					const avaibleSpots = data.filter(spot => spot.userId === currentUser.id);
-	
-					if (avaibleSpots.length) {
-						let randomSpot = avaibleSpots[this.getRandomInt(0, avaibleSpots.length -1)];
-						this.setState({
-							selectedSpot: randomSpot
-						});
-					} else {
-						swal('Você ainda não possui nenhum local cadastrado :(');
-					}
-				})
-				.catch(err => {
-					this.setLoadingState(false);
-					swal('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');
-				});
+			this.props.generateSpot().payload.then(spot => {
+				this.setLoadingState(false);
+				if (spot) {
+					this.setState({ selectedSpot: spot });
+				} else {
+					swal('Você ainda não possui nenhum local cadastrado :(');
+				}
+			})
+			.catch(err => {
+				this.setLoadingState(false);
+				swal('Erro ao carregar seu local aleatório. Tente novamente mais tarde.');
+			});
 		});
 	}
 	playDrumsSound() {
@@ -55,9 +50,6 @@ class Dashboard extends Component {
 			setTimeout(() => resolve(), 2000);
 		});
 		return promise; 
-	}
-	getRandomInt(min, max) {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 	render() {
 		return (
@@ -114,6 +106,10 @@ const styles = {
 	resultText: {
 		color: 'white'
 	}
-}
+};
 
-export default Dashboard;
+const mapStateToProps = ({ currentSpot }) => ({ currentSpot });
+
+const mapDispatchToProps = dispatch => bindActionCreators({ generateSpot }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

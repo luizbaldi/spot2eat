@@ -1,7 +1,10 @@
-export default function() {
-    return {
-        "spotId": 1,
-        "userId": 1,
-        "name": "Using redux on an existing project :)"
+import { GENERATE_SPOT } from '../actions';
+
+export default function(state = null, action) {
+    switch (action.type) {
+        case GENERATE_SPOT:
+            return action.payload;
+        default:
+            return state;
     }
-}
+};
