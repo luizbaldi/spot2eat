@@ -11,6 +11,7 @@ export function generateSpot() {
     };
 };
 
+/* Util methods (@toDo: Separate them in another file) */
 const _requestSpot = () => {
     const spotsUrl = 'https://api.myjson.com/bins/t7mlr';
     return axios.get(spotsUrl)

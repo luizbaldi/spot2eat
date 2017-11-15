@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import FullScreenContainer from '../../components/FullScreenContainer';
+
+/* Components */
+import FullScreenContainer from '../components/FullScreenContainer';
+
+/* Libs */
 import swal from 'sweetalert2';
-import { generateSpot } from '../../actions';
+import { generateSpot } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-/*
- * Component
- */
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
@@ -73,9 +74,7 @@ class Dashboard extends Component {
 	}
 }
 
-/*
- * Style
- */
+/* Style */
 const styles = {
 	content: {
 		marginTop: '60px',

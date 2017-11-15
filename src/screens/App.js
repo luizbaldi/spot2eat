@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import LoginScreen from './login/LoginScreen';
-import DashboardScreen from './dashboard/DashboardScreen';
-import SignUpScreen from './signup/SignUpScreen';
-import ManageSpotsScreen from './manageSpots/ManageSpotsScreen';
+import LoginScreen from './LoginScreen';
+import DashboardScreen from './DashboardScreen';
+import SignUpScreen from './SignUpScreen';
+import ManageSpotsScreen from './ManageSpotsScreen';
 
 class App extends Component {
 	render() {

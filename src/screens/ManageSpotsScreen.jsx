@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import FullScreenContainer from '../../components/FullScreenContainer';
-import Grid from '../../components/Grid';
+
+/* Components */
+import FullScreenContainer from '../components/FullScreenContainer';
+import Grid from '../components/Grid';
+
+/* Libs */
 import axios from 'axios';
 import swal from 'sweetalert2';
 
-/*
- * Component
- */
 class ManageSpotsScreen extends Component {
 	constructor(props) {
 		super(props);
@@ -102,9 +103,7 @@ class ManageSpotsScreen extends Component {
 	}
 };
 
-/*
- * Style
- */
+/* Style */
 const styles = {
 	content: {
 		marginTop: '50px',
@@ -112,6 +111,6 @@ const styles = {
 		textAlign: 'center',
 		marginBottom: '50px'
 	}
-}
+};
 
 export default ManageSpotsScreen;

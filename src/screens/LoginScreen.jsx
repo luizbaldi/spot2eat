@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import FullScreenContainer from '../../components/FullScreenContainer';
-import Button from '../../components/Button';
+
+/* Components */
+import FullScreenContainer from '../components/FullScreenContainer';
+import Button from '../components/Button';
+
+/* Libs */
 import axios from 'axios';
 import swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
-/*
- * Component
- */
 class LoginScreen extends Component {
 	constructor(props) {
 		super(props);
@@ -15,7 +16,6 @@ class LoginScreen extends Component {
 		this.state = {
 			username: '',
 			password: '',
-			showAlert: true,
 			isLoading: false
 		};
 
@@ -52,7 +52,11 @@ class LoginScreen extends Component {
 					swal("Erro ao realizar login :(")
 				});
 		} else {
-			swal("Por favor digite seu e-mail e senha para prosseguir :)")
+			swal(
+				'Ops...',
+				'Por favor digite seu e-mail e senha para prosseguir :)',
+				'info'
+			);
 		}
 	}
 	onFieldChange({target}) {
@@ -98,9 +102,7 @@ class LoginScreen extends Component {
 	}
 };
 
-/*
- * Style
- */
+/* Style */
 const styles = {
 	page: {
 		background: 'url(img/blue-people-bg.jpg) no-repeat',
