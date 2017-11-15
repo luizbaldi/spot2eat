@@ -13,10 +13,10 @@ import 'css-reset/reset.css';
 import './style/general.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-const store = createStore(reducers);
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(
-	<Provider store={store}>
+	<Provider store={createStoreWithMiddleware(reducers)}>
 		<BrowserRouter>
 			<App />
 		</BrowserRouter>

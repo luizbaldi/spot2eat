@@ -5,15 +5,15 @@ export const GENERATE_SPOT = 'GENERATE_SPOT';
 
 /* Action Creators */
 export function generateSpot() {
+    const spotsUrl = 'https://api.myjson.com/bins/t7mlr';
     return {
         type: GENERATE_SPOT,
-        payload: _requestSpot()
+        payload: _requestSpot(spotsUrl)
     };
 };
 
 /* Util methods (@toDo: Separate them in another file) */
-const _requestSpot = () => {
-    const spotsUrl = 'https://api.myjson.com/bins/t7mlr';
+const _requestSpot = (spotsUrl) => {
     return axios.get(spotsUrl)
         .then(({ data }) => {
             let spot = null;
