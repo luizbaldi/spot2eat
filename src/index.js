@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './screens/App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
+import ReduxPromise from 'redux-promise';
 
 /*
 * Styles

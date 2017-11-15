@@ -17,6 +17,7 @@ class Dashboard extends Component {
 
 		this.generateRandomSpot = this.generateRandomSpot.bind(this);
 		this.setLoadingState = this.setLoadingState.bind(this);
+		this.getLocationMessage = this.getLocationMessage.bind(this);
 	}
 	setLoadingState(loadingState) {
 		this.setState({
@@ -28,7 +29,7 @@ class Dashboard extends Component {
 		this.playDrumsSound()
 			.then(() => {
 				this.setLoadingState(false);
-				this.props.generateSpot();
+				this.props.generateSpot(this.props.user);
 			});
 	}
 	playDrumsSound() {
@@ -40,16 +41,18 @@ class Dashboard extends Component {
 		});
 		return promise; 
 	}
+	getLocationMessage() {
+		return this.props.currentSpot
+			? this.props.currentSpot.name
+			: 'Nenhum local selecionado ou você ainda não possui locais cadastrados'
+	}
 	render() {
 		return (
 			<FullScreenContainer {...this.props} showHeader screenName="Dashboard" loadingState={this.state.isLoading}>
 				<div style={styles.content}>
-					{this.props.currentSpot ?
-						<div style={styles.result}>
-							<p style={styles.resultText}>Local: {this.props.currentSpot.name}</p>
-						</div>
-						: null
-					}
+					<div style={styles.result}>
+						<p style={styles.resultText}>Local: {this.getLocationMessage()}</p>
+					</div>
 					<button 
 						style={styles.button}
 						onClick={this.generateRandomSpot}
@@ -96,7 +99,7 @@ const styles = {
 	}
 };
 
-const mapStateToProps = ({ currentSpot }) => ({ currentSpot });
+const mapStateToProps = ({ currentSpot, user }) => ({ currentSpot, user });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ generateSpot }, dispatch);
 

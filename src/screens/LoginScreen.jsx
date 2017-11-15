@@ -8,6 +8,9 @@ import Button from '../components/Button';
 import axios from 'axios';
 import swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser } from '../actions';
 
 class LoginScreen extends Component {
 	constructor(props) {
@@ -41,7 +44,7 @@ class LoginScreen extends Component {
 					});
 					if (currentUser) {
 						swal(`Bem vindo ${currentUser.name} :)`);
-						localStorage.setItem('user', JSON.stringify(currentUser));
+						this.props.setUser(currentUser);
 						this.props.history.push('/dashboard');
 					} else {
 						swal("Login inválido.")
@@ -49,7 +52,8 @@ class LoginScreen extends Component {
 				})
 				.catch(err => {
 					this.setLoadingState(false);
-					swal("Erro ao realizar login :(")
+					swal("Erro ao realizar login :(");
+					console.log(err);
 				});
 		} else {
 			swal(
@@ -156,4 +160,6 @@ const styles = {
 	}
 };
 
-export default LoginScreen;
+const mapDispatchToProps = (dispatch) => bindActionCreators({ setUser }, dispatch);
+
+export default connect(null, mapDispatchToProps)(LoginScreen);

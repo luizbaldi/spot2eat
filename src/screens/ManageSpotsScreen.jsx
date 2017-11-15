@@ -7,6 +7,7 @@ import Grid from '../components/Grid';
 /* Libs */
 import axios from 'axios';
 import swal from 'sweetalert2';
+import { connect } from 'react-redux';
 
 class ManageSpotsScreen extends Component {
 	constructor(props) {
@@ -52,7 +53,7 @@ class ManageSpotsScreen extends Component {
 		axios.get("https://api.myjson.com/bins/t7mlr")
 			.then(({data}) => {
 				this.setLoadingState(false);
-				const currentUser = JSON.parse(localStorage.getItem('user'));
+				const currentUser = this.props.user;
 				const spots = data.filter(spot => spot.userId === currentUser.id);
 				this.setState({
 					spotsData: spots
@@ -96,7 +97,9 @@ class ManageSpotsScreen extends Component {
 						selectedSpots={this.state.selectedSpots}
 						onSelectSpot={this.onSelectSpot}
 						reloadSpots={this.reloadSpots}
-						onRemoveSpots={this.onRemoveSpots} />
+						onRemoveSpots={this.onRemoveSpots} 
+						currentUser={this.props.user}
+					/>
 				</div>
 			</FullScreenContainer>
 		);
@@ -113,4 +116,6 @@ const styles = {
 	}
 };
 
-export default ManageSpotsScreen;
+const mapStateToProps = ({ user }) => ({ user });
+
+export default connect(mapStateToProps)(ManageSpotsScreen);

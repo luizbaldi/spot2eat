@@ -2,22 +2,29 @@ import axios from 'axios';
 
 /* Action Types */
 export const GENERATE_SPOT = 'GENERATE_SPOT';
+export const SET_USER      = 'SET_USER';
 
 /* Action Creators */
-export function generateSpot() {
+export function generateSpot(currentUser) {
     const spotsUrl = 'https://api.myjson.com/bins/t7mlr';
     return {
         type: GENERATE_SPOT,
-        payload: _requestSpot(spotsUrl)
+        payload: _requestSpot(spotsUrl, currentUser)
+    };
+};
+
+export function setUser(currentUser) {
+    return {
+        type: SET_USER,
+        payload: currentUser
     };
 };
 
 /* Util methods (@toDo: Separate them in another file) */
-const _requestSpot = (spotsUrl) => {
+const _requestSpot = (spotsUrl, currentUser) => {
     return axios.get(spotsUrl)
         .then(({ data }) => {
             let spot = null;
-            const currentUser = JSON.parse(localStorage.getItem('user'));
             const avaibleSpots = data.filter(spot => spot.userId === currentUser.id);
 
             if (avaibleSpots.length) {

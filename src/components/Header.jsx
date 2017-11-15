@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import Sidebar from 'react-sidebar';
 import SidebarContent from './SidebarContent';
 import { TiThMenu } from 'react-icons/lib/ti'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser } from '../actions';
+import swal from 'sweetalert2';
 
 /*
  * Component
@@ -22,10 +26,22 @@ class Header extends Component {
 	}
 
 	componentWillMount() {
-		let user = localStorage.getItem('user');
-		this.setState({
-			user: JSON.parse(user)
-		});
+		let user = this.props.user;
+
+		if (user) {
+			this.setState({
+				user: user
+			});
+		} else {
+			swal({
+				title: 'Ops!',
+				text: 'Você precisa estar logado para continuar',
+				type: 'info'
+			})
+			.then(() => {
+				this.props.history.push('/');
+			});
+		}
 	}
 
 	onToggleSidebar() {
@@ -40,7 +56,7 @@ class Header extends Component {
 	}
 
 	onLogoutClick() {
-		localStorage.setItem('user', null);
+		this.props.setUser(null);
 		this.props.history.push('/');
 	}
 
@@ -105,4 +121,8 @@ const styles = {
 	}
 };
 
-export default Header;
+const mapStateToProps = ({ user }) => ({ user });
+
+const mapDispatchToProps = dispatch => bindActionCreators({ setUser }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

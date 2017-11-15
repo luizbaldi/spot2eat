@@ -38,7 +38,7 @@ class Grid extends Component {
         axios.get("https://api.myjson.com/bins/t7mlr")
             .then(({data}) => {
                 this.setLoadingState(false);
-                let currentUser = JSON.parse(localStorage.getItem('user'));
+                let currentUser = this.props.currentUser;
                 let newSpot = {
                     spotId: data[data.length - 1].spotId + 1,
                     userId: currentUser.id,

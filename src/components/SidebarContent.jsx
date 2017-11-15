@@ -4,7 +4,7 @@ const SidebarContent = ({user, onManageSpotsClick, onLogoutClick, onSelectPlaceC
 	return (
 		<div style={styles.menu}>
 			<div style={styles.menuItem}>
-				Bem vindo, {user.name}
+				Bem vindo, {user ? user.name : null}
 			</div>
 			<hr />
 			<ul>

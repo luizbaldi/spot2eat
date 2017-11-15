@@ -3,6 +3,9 @@ import axios from 'axios';
 import FullScreenContainer from '../components/FullScreenContainer';
 import Button from '../components/Button';
 import swal from 'sweetalert2';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser } from '../actions';
 
 /* Component */
 class SignUp extends Component {
@@ -52,12 +55,13 @@ class SignUp extends Component {
 						data.push(newUser);
 						axios.put("https://api.myjson.com/bins/1gzisn", data)
 							.then(response => {
-								localStorage.setItem('user', JSON.stringify(newUser));
+								this.props.setUser(newUser);
 								this.props.history.push('/dashboard');
 								swal("Successo! Bem vindo ao barco :)");
 							})
 							.catch(err => {
 								swal("Error durante ao realizar cadastro. Tente novamente mais tarde.");
+								console.log(err);
 							});
 					} else {
 						swal("O usuário escolhido já está em uso, tente outro.");
@@ -66,6 +70,7 @@ class SignUp extends Component {
 				.catch(err => {
 					this.setLoadingState(false);
 					swal("Oops, algo de errado aconteceu. Tente novamente mais tarde");
+					console.log(err);
 				});
 		} else {
 			swal("Por favor, preencha todos os campos para prosseguir.")
@@ -154,4 +159,6 @@ const styles = {
 	}
 };
 
-export default SignUp;
+const mapDispatchToProps = dispatch => bindActionCreators({ setUser }, dispatch);
+
+export default connect(null, mapDispatchToProps)(SignUp);
