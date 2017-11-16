@@ -68,6 +68,12 @@ class LoginScreen extends Component {
 			[target.name]: target.value
 		});
 	}
+	testLogin() {
+		const loginData = {id: 1, name: "Administrador", username: "admin", password: "123"};
+		swal(`Bem vindo ${loginData.name} :)`);
+		this.props.setUser(loginData);
+		this.props.history.push('/dashboard');
+	}
 	render() {
 		return (
 			<FullScreenContainer {...this.props} style={styles.page} loadingState={this.state.isLoading}>
@@ -93,6 +99,12 @@ class LoginScreen extends Component {
 							<Button 
 								label="Login"
 								onClick={this.validateLogin}
+							/>
+						</div>
+						<div style={styles.row}>
+							<Button 
+								label="Login Teste"
+								onClick={() => this.testLogin()}
 							/>
 						</div>
 

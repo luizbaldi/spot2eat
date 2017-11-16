@@ -8,24 +8,24 @@ import Grid from '../components/Grid';
 import axios from 'axios';
 import swal from 'sweetalert2';
 import { connect } from 'react-redux';
+import { loadSpots } from '../actions';
+import { bindActionCreators } from 'redux';
 
 class ManageSpotsScreen extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			spotsData: [],
 			selectedSpots: [],
 			isLoading: false
 		};
 
 		this.onSelectSpot = this.onSelectSpot.bind(this);
 		this.onRemoveSpots = this.onRemoveSpots.bind(this);
-		this.reloadSpots = this.reloadSpots.bind(this);
 		this.setLoadingState = this.setLoadingState.bind(this);
 	}
-	componentWillMount() {
-		this.reloadSpots();
+	componentDidMount() {
+		this.props.loadSpots(this.props.user);
 	}
 	onSelectSpot(spot) {
 		let selectedSpots = this.state.selectedSpots;
@@ -48,23 +48,6 @@ class ManageSpotsScreen extends Component {
 			isLoading: loadingState
 		});
 	}
-	reloadSpots() {
-		this.setLoadingState(true);
-		axios.get("https://api.myjson.com/bins/t7mlr")
-			.then(({data}) => {
-				this.setLoadingState(false);
-				const currentUser = this.props.user;
-				const spots = data.filter(spot => spot.userId === currentUser.id);
-				this.setState({
-					spotsData: spots
-				});
-			})
-			.catch(err => {
-				this.setLoadingState(false);
-				swal("Erro ao carregar restaurantes.");
-				this.props.history.goBack();
-			});
-	}
 	onRemoveSpots() {
 		let selectedSpots = this.state.selectedSpots;
 		this.setLoadingState(true);
@@ -76,8 +59,12 @@ class ManageSpotsScreen extends Component {
 				axios.put("https://api.myjson.com/bins/t7mlr", updatedSpots)
 					.then(() => {
 						this.setLoadingState(false);
-						swal("Restaurantes removidos com sucesso.");
-						this.reloadSpots();
+						swal(
+							'Sucesso',
+							'Restaurantes removidos com sucesso',
+							'success'
+						);
+						this.props.loadSpots(this.props.user);
 						this.setState({
 							selectedSpots: []
 						})
@@ -85,7 +72,11 @@ class ManageSpotsScreen extends Component {
 			})
 			.catch(err => {
 				this.setLoadingState(false);
-				swal("Erro ao remover restaurantes.");
+				swal(
+					'Ops...',
+					'Erro ao remover restaurantes',
+					'error'
+				);
 			});
 	}
 	render() {
@@ -93,10 +84,10 @@ class ManageSpotsScreen extends Component {
 			<FullScreenContainer {...this.props} showHeader showFooter screenName="Gerenciar Locais" loadingState={this.state.isLoading}>
 				<div style={styles.content}>
 					<Grid 
-						spots={this.state.spotsData}
+						spots={this.props.spots}
 						selectedSpots={this.state.selectedSpots}
 						onSelectSpot={this.onSelectSpot}
-						reloadSpots={this.reloadSpots}
+						loadSpots={this.props.loadSpots}
 						onRemoveSpots={this.onRemoveSpots} 
 						currentUser={this.props.user}
 					/>
@@ -116,6 +107,8 @@ const styles = {
 	}
 };
 
-const mapStateToProps = ({ user }) => ({ user });
+const mapStateToProps = ({ user, spots }) => ({ user, spots });
 
-export default connect(mapStateToProps)(ManageSpotsScreen);
+const mapDispatchToProps = dispatch => bindActionCreators({ loadSpots }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageSpotsScreen);

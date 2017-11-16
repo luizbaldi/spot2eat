@@ -47,18 +47,30 @@ class Grid extends Component {
                 data.push(newSpot);
                 axios.put("https://api.myjson.com/bins/t7mlr", data)
                     .then(response => {
-                        swal("Local adicionado com sucesso :)");
+                        swal(
+                            'Sucesso!',
+                            'Seu novo local foi adicionado :)',
+                            'success'
+                        );
                         this.onModalStateChange('close');
-                        this.props.reloadSpots();
+                        this.props.loadSpots(this.props.currentUser);
                     })
                     .catch(err => {
-                        swal("Erro ao salvar novo local. Tente novamente mais tarde :(");
+                        swal(
+                            'Ops...',
+                            'Erro ao salvar novo local. Tente novamente mais tarde :(',
+                            'error'
+                        );
 				        this.onModalStateChange('close');
                     });
             })
             .catch(err => {
                 this.setLoadingState(false);
-				swal("Erro ao salvar novo local. Tente novamente mais tarde.");
+                swal(
+                    'Ops...',
+                    'Erro ao salvar novo local. Tente novamente mais tarde :(',
+                    'error'
+                );
 				this.onModalStateChange('close');
 			});
     }
