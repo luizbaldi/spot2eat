@@ -50,33 +50,20 @@ class ManageSpotsScreen extends Component {
 	}
 	onRemoveSpots() {
 		let selectedSpots = this.state.selectedSpots;
-		this.setLoadingState(true);
-		axios.get("https://api.myjson.com/bins/t7mlr")
-			.then(({data}) => {
-				let updatedSpots = data.filter(spot => {
-					return !selectedSpots.some(spotToRemove => spot.spotId === spotToRemove.spotId);
-				});
-				axios.put("https://api.myjson.com/bins/t7mlr", updatedSpots)
-					.then(() => {
-						this.setLoadingState(false);
-						swal(
-							'Sucesso',
-							'Restaurantes removidos com sucesso',
-							'success'
-						);
-						this.props.loadSpots(this.props.user);
-						this.setState({
-							selectedSpots: []
-						})
-					});
-			})
-			.catch(err => {
-				this.setLoadingState(false);
+		let updatedSpots = this.props.spots.filter(spot => {
+			return !selectedSpots.some(spotToRemove => spot.spotId === spotToRemove.spotId);
+		});
+		axios.put("https://api.myjson.com/bins/t7mlr", updatedSpots)
+			.then(() => {
 				swal(
-					'Ops...',
-					'Erro ao remover restaurantes',
-					'error'
+					'Sucesso',
+					'Restaurantes removidos com sucesso',
+					'success'
 				);
+				this.props.loadSpots(this.props.user);
+				this.setState({
+					selectedSpots: []
+				})
 			});
 	}
 	render() {

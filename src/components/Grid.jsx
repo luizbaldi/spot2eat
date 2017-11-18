@@ -4,6 +4,7 @@ import axios from 'axios';
 import Button from './Button';
 import swal from 'sweetalert2';
 import Loader from './Loader';
+import { FaCheck } from 'react-icons/lib/fa';
 
 class Grid extends Component {
     constructor(props) {
@@ -34,45 +35,32 @@ class Grid extends Component {
         });
     }
     onAddNewSpot(spot) {
-        this.setLoadingState(true);
-        axios.get("https://api.myjson.com/bins/t7mlr")
-            .then(({data}) => {
-                this.setLoadingState(false);
-                let currentUser = this.props.currentUser;
-                let newSpot = {
-                    spotId: data[data.length - 1].spotId + 1,
-                    userId: currentUser.id,
-                    name: spot.spotName
-                };
-                data.push(newSpot);
-                axios.put("https://api.myjson.com/bins/t7mlr", data)
-                    .then(response => {
-                        swal(
-                            'Sucesso!',
-                            'Seu novo local foi adicionado :)',
-                            'success'
-                        );
-                        this.onModalStateChange('close');
-                        this.props.loadSpots(this.props.currentUser);
-                    })
-                    .catch(err => {
-                        swal(
-                            'Ops...',
-                            'Erro ao salvar novo local. Tente novamente mais tarde :(',
-                            'error'
-                        );
-				        this.onModalStateChange('close');
-                    });
+        const spots = this.props.spots;
+        const currentUser = this.props.currentUser;
+        const newSpot = {
+            spotId: spots[spots.length - 1].spotId + 1,
+            userId: currentUser.id,
+            name: spot.spotName
+        };
+        spots.push(newSpot);
+        axios.put("https://api.myjson.com/bins/t7mlr", spots)
+            .then(response => {
+                swal(
+                    'Sucesso!',
+                    'Seu novo local foi adicionado :)',
+                    'success'
+                );
+                this.onModalStateChange('close');
+                this.props.loadSpots(this.props.currentUser);
             })
             .catch(err => {
-                this.setLoadingState(false);
                 swal(
                     'Ops...',
                     'Erro ao salvar novo local. Tente novamente mais tarde :(',
                     'error'
                 );
-				this.onModalStateChange('close');
-			});
+                this.onModalStateChange('close');
+            });
     }
     render() {
         const columns = ['', 'Id', 'Nome'];
@@ -106,13 +94,16 @@ class Grid extends Component {
                                 <tbody>
                                         {this.props.spots.map((spot, index) => {
                                             return (
-                                                <tr key={`spot_${index}`} style={style.row}>
-                                                    <td>
-                                                        <input 
-                                                            type="checkbox" 
-                                                            onClick={() => this.props.onSelectSpot(spot)} 
-                                                            style={style.checkbox}
-                                                        />
+                                                <tr 
+                                                    key={`spot_${index}`}
+                                                    style={this.props.selectedSpots.includes(spot) ? style.selectedRow : style.row  }
+                                                    onClick={() => this.props.onSelectSpot(spot)} 
+                                                >
+                                                    <td style={style.checkbox}>
+                                                        {this.props.selectedSpots.includes(spot) ?
+                                                            <FaCheck />
+                                                            : null        
+                                                        }
                                                     </td>
                                                     <td>{spot.spotId}</td>
                                                     <td>{spot.name}</td>
@@ -161,9 +152,15 @@ const style = {
         lineHeight: '36px',
         borderBottom: '1px solid #bf8e8e'
     },
+    selectedRow: {
+        height: '38px',
+        lineHeight: '36px',
+        borderBottom: '1px solid #bf8e8e',
+        backgroundColor: 'rgba(142, 142, 142, 0.74)'
+    },
     checkbox: {
-        width: '16px',
-        height: '16px'
+        width: '55px',
+        color: '#3EFF3B'
     },
     fullButton: {
         width: '96%',

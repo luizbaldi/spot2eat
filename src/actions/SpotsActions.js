@@ -43,13 +43,10 @@ const _requestSpot = (spotsUrl, currentUser) => {
 
 const _loadSpots = (spotsUrl, currentUser) => {
   return axios.get(spotsUrl)
-        .then(({ data }) => {
-            const spots = data.filter(spot => spot.userId === currentUser.id);
-            return spots;
-        })
+        .then(({ data }) => currentUser ? data.filter(spot => spot.userId === currentUser.id) : [])
         .catch(err => {
             console.log('Error loading spots', err);
-            return null
+            return [];
         });
 };
 

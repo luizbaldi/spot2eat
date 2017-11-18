@@ -43,16 +43,28 @@ class LoginScreen extends Component {
 						return username === user.username && password === user.password;
 					});
 					if (currentUser) {
-						swal(`Bem vindo ${currentUser.name} :)`);
+						swal(
+							'',
+							`Bem vindo ${currentUser.name} :)`,
+							'success'
+						);
 						this.props.setUser(currentUser);
 						this.props.history.push('/dashboard');
 					} else {
-						swal("Login inválido.")
+						swal(
+							'Ops...',
+							'Login inválido',
+							'info'
+						);
 					}
 				})
 				.catch(err => {
 					this.setLoadingState(false);
-					swal("Erro ao realizar login :(");
+					swal(
+						'Ops',
+						'Erro ao realizar login :(',
+						'error'
+					);
 					console.log(err);
 				});
 		} else {
@@ -70,7 +82,11 @@ class LoginScreen extends Component {
 	}
 	testLogin() {
 		const loginData = {id: 1, name: "Administrador", username: "admin", password: "123"};
-		swal(`Bem vindo ${loginData.name} :)`);
+		swal(
+			'',
+			`Bem vindo ${loginData.name} :)`,
+			'success'
+		);
 		this.props.setUser(loginData);
 		this.props.history.push('/dashboard');
 	}
