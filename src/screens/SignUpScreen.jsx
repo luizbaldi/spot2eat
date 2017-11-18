@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser } from '../actions';
+import { setUser } from '../actions/UserActions';
 
 /* Component */
 class SignUp extends Component {

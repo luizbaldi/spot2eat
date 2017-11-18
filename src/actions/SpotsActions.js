@@ -3,7 +3,6 @@ import axios from 'axios';
 /* Action Types */
 export const GENERATE_SPOT = 'GENERATE_SPOT';
 export const LOAD_SPOTS    = 'LOAD_SPOTS';
-export const SET_USER      = 'SET_USER';
 
 /* Action Creators */
 export function generateSpot(currentUser) {
@@ -11,13 +10,6 @@ export function generateSpot(currentUser) {
     return {
         type: GENERATE_SPOT,
         payload: _requestSpot(spotsUrl, currentUser)
-    };
-};
-
-export function setUser(currentUser) {
-    return {
-        type: SET_USER,
-        payload: currentUser
     };
 };
 
@@ -49,12 +41,8 @@ const _requestSpot = (spotsUrl, currentUser) => {
         });
 };
 
-const _getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
 const _loadSpots = (spotsUrl, currentUser) => {
-    return axios.get(spotsUrl)
+  return axios.get(spotsUrl)
         .then(({ data }) => {
             const spots = data.filter(spot => spot.userId === currentUser.id);
             return spots;
@@ -63,4 +51,8 @@ const _loadSpots = (spotsUrl, currentUser) => {
             console.log('Error loading spots', err);
             return null
         });
+};
+
+const _getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 };

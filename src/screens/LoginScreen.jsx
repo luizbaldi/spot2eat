@@ -10,7 +10,7 @@ import swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser } from '../actions';
+import { setUser } from '../actions/UserActions';
 
 class LoginScreen extends Component {
 	constructor(props) {

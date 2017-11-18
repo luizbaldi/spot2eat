@@ -4,7 +4,7 @@ import SidebarContent from './SidebarContent';
 import { TiThMenu } from 'react-icons/lib/ti'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser } from '../actions';
+import { setUser } from '../actions/UserActions';
 import swal from 'sweetalert2';
 
 /*

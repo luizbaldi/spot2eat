@@ -1,4 +1,4 @@
-import { GENERATE_SPOT } from '../actions';
+import { GENERATE_SPOT } from '../actions/SpotsActions';
 
 export default (state = null, action) => {
     switch (action.type) {

@@ -8,7 +8,7 @@ import Grid from '../components/Grid';
 import axios from 'axios';
 import swal from 'sweetalert2';
 import { connect } from 'react-redux';
-import { loadSpots } from '../actions';
+import { loadSpots } from '../actions/SpotsActions';
 import { bindActionCreators } from 'redux';
 
 class ManageSpotsScreen extends Component {

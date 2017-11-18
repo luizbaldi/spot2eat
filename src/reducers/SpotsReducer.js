@@ -1,4 +1,4 @@
-import { LOAD_SPOTS } from '../actions';
+import { LOAD_SPOTS } from '../actions/SpotsActions';
 
 export default (state = [], action) => {
   switch(action.type) {

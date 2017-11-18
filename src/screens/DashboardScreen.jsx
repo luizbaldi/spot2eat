@@ -4,8 +4,7 @@ import React, { Component } from 'react';
 import FullScreenContainer from '../components/FullScreenContainer';
 
 /* Libs */
-import swal from 'sweetalert2';
-import { generateSpot } from '../actions';
+import { generateSpot } from '../actions/SpotsActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
