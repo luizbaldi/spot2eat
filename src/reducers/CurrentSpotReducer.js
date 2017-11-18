@@ -1,8 +1,8 @@
-import { GENERATE_SPOT } from '../actions/SpotsActions';
+import { GET_RANDOM_SPOT } from '../actions/SpotsActions';
 
 export default (state = null, action) => {
     switch (action.type) {
-        case GENERATE_SPOT:
+        case GET_RANDOM_SPOT:
             return action.payload;
         default:
             return state;

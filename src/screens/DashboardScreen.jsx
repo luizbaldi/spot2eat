@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import FullScreenContainer from '../components/FullScreenContainer';
 
 /* Libs */
-import { generateSpot } from '../actions/SpotsActions';
+import { getRandomUserSpot } from '../actions/SpotsActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -28,7 +28,7 @@ class Dashboard extends Component {
 		this.playDrumsSound()
 			.then(() => {
 				this.setLoadingState(false);
-				this.props.generateSpot(this.props.user);
+				this.props.getRandomUserSpot(this.props.spots, this.props.user);
 			});
 	}
 	playDrumsSound() {
@@ -98,8 +98,8 @@ const styles = {
 	}
 };
 
-const mapStateToProps = ({ currentSpot, user }) => ({ currentSpot, user });
+const mapStateToProps = ({ spots, user, currentSpot }) => ({ spots, user, currentSpot });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ generateSpot }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getRandomUserSpot }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

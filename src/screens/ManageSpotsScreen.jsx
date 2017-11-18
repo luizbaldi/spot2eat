@@ -8,7 +8,7 @@ import Grid from '../components/Grid';
 import axios from 'axios';
 import swal from 'sweetalert2';
 import { connect } from 'react-redux';
-import { loadSpots } from '../actions/SpotsActions';
+import { loadSpots, insertSpot } from '../actions/SpotsActions';
 import { bindActionCreators } from 'redux';
 
 class ManageSpotsScreen extends Component {
@@ -23,9 +23,6 @@ class ManageSpotsScreen extends Component {
 		this.onSelectSpot = this.onSelectSpot.bind(this);
 		this.onRemoveSpots = this.onRemoveSpots.bind(this);
 		this.setLoadingState = this.setLoadingState.bind(this);
-	}
-	componentDidMount() {
-		this.props.loadSpots(this.props.user);
 	}
 	onSelectSpot(spot) {
 		let selectedSpots = this.state.selectedSpots;
@@ -77,6 +74,7 @@ class ManageSpotsScreen extends Component {
 						loadSpots={this.props.loadSpots}
 						onRemoveSpots={this.onRemoveSpots} 
 						currentUser={this.props.user}
+						insertSpot={this.props.insertSpot}
 					/>
 				</div>
 			</FullScreenContainer>
@@ -96,6 +94,6 @@ const styles = {
 
 const mapStateToProps = ({ user, spots }) => ({ user, spots });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ loadSpots }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ loadSpots, insertSpot }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageSpotsScreen);

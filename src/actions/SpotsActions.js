@@ -1,44 +1,50 @@
 import axios from 'axios';
+import firebase from '../util/fire';
+
 import { getRandomInt } from '../util/util';
+
 /* Action Types */
-export const GENERATE_SPOT = 'GENERATE_SPOT';
-export const LOAD_SPOTS    = 'LOAD_SPOTS';
+export const GET_RANDOM_SPOT = 'GET_RANDOM_SPOT';
+export const LOAD_SPOTS      = 'LOAD_SPOTS';
+export const INSERT_SPOT     = 'INSERT_SPOT';
 
 /* Action Creators */
-export function generateSpot(currentUser) {
-    const spotsUrl = 'https://api.myjson.com/bins/t7mlr';
-    return {
-        type: GENERATE_SPOT,
-        payload: _requestSpot(spotsUrl, currentUser)
-    };
-};
-
 export function loadSpots(currentUser) {
-    const spotsUrl = 'https://api.myjson.com/bins/t7mlr';
-    return {
-        type: LOAD_SPOTS,
-        payload: _loadSpots(spotsUrl, currentUser)
+    /* Old spots url: https://api.myjson.com/bins/t7mlr */
+
+    return dispatch => {
+        firebase.on('value', snapshot => {
+            dispatch({
+                type: LOAD_SPOTS,
+                payload: snapshot.val()
+            })
+        });
     }
 }
 
+export function insertSpot(spot) {
+    return dispatch => firebase.push(spot);
+}
+
+export function getRandomUserSpot(spots, currentUser) {
+    return {
+        type: GET_RANDOM_SPOT,
+        payload: _getRandomSpot(spots, currentUser)
+    };
+}
+
 /* Util methods */
-const _requestSpot = (spotsUrl, currentUser) => {
-    return axios.get(spotsUrl)
-        .then(({ data }) => {
-            let spot = null;
-            const avaibleSpots = data.filter(spot => spot.userId === currentUser.id);
+const _getRandomSpot = (spots, currentUser) => {
+    let spot = null;
+    const avaibleSpots = spots.filter(spot => spot.userId === currentUser.id);
 
-            if (avaibleSpots.length) {
-                spot = avaibleSpots[getRandomInt(0, avaibleSpots.length - 1)];
-            } else {
-                spot = avaibleSpots;
-            }
+    if (avaibleSpots.length) {
+        spot = avaibleSpots[getRandomInt(0, avaibleSpots.length - 1)];
+    } else {
+        spot = avaibleSpots;
+    }
 
-            return spot;
-        })
-        .catch(err => {
-            return null;
-        });
+    return spot;
 };
 
 const _loadSpots = (spotsUrl, currentUser) => {

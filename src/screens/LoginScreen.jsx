@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser } from '../actions/UserActions';
+import { loadSpots } from '../actions/SpotsActions';
 
 class LoginScreen extends Component {
 	constructor(props) {
@@ -49,6 +50,7 @@ class LoginScreen extends Component {
 							'success'
 						);
 						this.props.setUser(currentUser);
+						this.props.loadSpots(currentUser);
 						this.props.history.push('/dashboard');
 					} else {
 						swal(
@@ -88,6 +90,7 @@ class LoginScreen extends Component {
 			'success'
 		);
 		this.props.setUser(loginData);
+		this.props.loadSpots(loginData);
 		this.props.history.push('/dashboard');
 	}
 	render() {
@@ -188,6 +191,6 @@ const styles = {
 	}
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ setUser }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ setUser, loadSpots }, dispatch);
 
 export default connect(null, mapDispatchToProps)(LoginScreen);

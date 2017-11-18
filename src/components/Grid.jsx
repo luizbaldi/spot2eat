@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import AddNewSpotModal from './modal/AddNewSpot';
-import axios from 'axios';
 import Button from './Button';
 import swal from 'sweetalert2';
 import Loader from './Loader';
 import { FaCheck } from 'react-icons/lib/fa';
+import _ from 'lodash';
 
 class Grid extends Component {
     constructor(props) {
@@ -35,32 +35,10 @@ class Grid extends Component {
         });
     }
     onAddNewSpot(spot) {
-        const spots = this.props.spots;
-        const currentUser = this.props.currentUser;
-        const newSpot = {
-            spotId: spots[spots.length - 1].spotId + 1,
-            userId: currentUser.id,
+        this.props.insertSpot({
+            userId: this.props.currentUser.id,
             name: spot.spotName
-        };
-        spots.push(newSpot);
-        axios.put("https://api.myjson.com/bins/t7mlr", spots)
-            .then(response => {
-                swal(
-                    'Sucesso!',
-                    'Seu novo local foi adicionado :)',
-                    'success'
-                );
-                this.onModalStateChange('close');
-                this.props.loadSpots(this.props.currentUser);
-            })
-            .catch(err => {
-                swal(
-                    'Ops...',
-                    'Erro ao salvar novo local. Tente novamente mais tarde :(',
-                    'error'
-                );
-                this.onModalStateChange('close');
-            });
+        });
     }
     render() {
         const columns = ['', 'Id', 'Nome'];
@@ -84,7 +62,7 @@ class Grid extends Component {
                             </div>
                             : null
                         }
-                        { this.props.spots.length ?
+                        { this.props.spots ?
                             <table style={style.table}>
                                 <thead>
                                     <tr style={style.head}>
@@ -92,10 +70,10 @@ class Grid extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        {this.props.spots.map((spot, index) => {
+                                        {_.map(this.props.spots, (spot, index) => {
                                             return (
                                                 <tr 
-                                                    key={`spot_${index}`}
+                                                    key={index}
                                                     style={this.props.selectedSpots.includes(spot) ? style.selectedRow : style.row  }
                                                     onClick={() => this.props.onSelectSpot(spot)} 
                                                 >
@@ -105,7 +83,7 @@ class Grid extends Component {
                                                             : null        
                                                         }
                                                     </td>
-                                                    <td>{spot.spotId}</td>
+                                                    <td>{index}</td>
                                                     <td>{spot.name}</td>
                                                 </tr>
                                             )
