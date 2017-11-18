@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { getRandomInt } from '../util/util';
 /* Action Types */
 export const GENERATE_SPOT = 'GENERATE_SPOT';
 export const LOAD_SPOTS    = 'LOAD_SPOTS';
@@ -21,7 +21,7 @@ export function loadSpots(currentUser) {
     }
 }
 
-/* Util methods (@toDo: Separate them in another file) */
+/* Util methods */
 const _requestSpot = (spotsUrl, currentUser) => {
     return axios.get(spotsUrl)
         .then(({ data }) => {
@@ -29,7 +29,7 @@ const _requestSpot = (spotsUrl, currentUser) => {
             const avaibleSpots = data.filter(spot => spot.userId === currentUser.id);
 
             if (avaibleSpots.length) {
-                spot = avaibleSpots[_getRandomInt(0, avaibleSpots.length - 1)];
+                spot = avaibleSpots[getRandomInt(0, avaibleSpots.length - 1)];
             } else {
                 spot = avaibleSpots;
             }
@@ -48,8 +48,4 @@ const _loadSpots = (spotsUrl, currentUser) => {
             console.log('Error loading spots', err);
             return [];
         });
-};
-
-const _getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 };
