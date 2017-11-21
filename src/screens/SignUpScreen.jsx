@@ -62,23 +62,43 @@ class SignUp extends Component {
 							.then(response => {
 								this.props.setUser(newUser);
 								this.props.history.push('/dashboard');
-								swal("Successo! Bem vindo ao barco :)");
+								swal(
+									'Successo!',
+									'Bem vindo ao barco :)',
+									'success'
+								);
 							})
 							.catch(err => {
-								swal("Error durante ao realizar cadastro. Tente novamente mais tarde.");
+								swal(
+									'Ops', 
+									'Erro ao realizar cadastro. Tente novamente mais tarde.',
+									'error'
+								);
 								console.log(err);
 							});
 					} else {
-						swal("O usuário escolhido já está em uso, tente outro.");
+						swal(
+							'Ops',
+							'O usuário escolhido já está em uso, tente outro.',
+							'info'
+						);
 					}
 				})
 				.catch(err => {
 					this.setLoadingState(false);
-					swal("Oops, algo de errado aconteceu. Tente novamente mais tarde");
+					swal(
+						'Ops', 
+						'Algo de errado aconteceu. Tente novamente mais tarde',
+						'info'
+					);
 					console.log(err);
 				});
 		} else {
-			swal("Por favor, preencha todos os campos para prosseguir.")
+			swal(
+				'',
+				'Por favor, preencha todos os campos para prosseguir.',
+				'info'
+			);
 		}
 	}
 	render() {

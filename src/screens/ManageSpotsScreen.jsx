@@ -59,7 +59,13 @@ class ManageSpotsScreen extends Component {
 			});
 		});
 
-		this.props.updateSpots(spots);
+		this.props.updateSpots(spots, () => {
+			swal(
+				'Sucesso!',
+				'Seus locais foram removidos com sucesso :)',
+				'success'
+			);
+		});
 	}
 	render() {
 		return (
