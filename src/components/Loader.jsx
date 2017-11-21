@@ -1,4 +1,6 @@
 import React from 'react';
+
+/* Libs */
 import { PacmanLoader } from 'halogen';
 
 const Loader = () => {
@@ -13,6 +15,7 @@ const Loader = () => {
     );
 };
 
+/* Style */
 const styles = {
     container: {
         width: '100%',

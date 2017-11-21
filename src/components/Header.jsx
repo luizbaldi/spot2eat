@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+
+/* Libs */
 import Sidebar from 'react-sidebar';
 import SidebarContent from './SidebarContent';
 import { TiThMenu } from 'react-icons/lib/ti'
+import swal from 'sweetalert2';
+
+/* Redux */
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser } from '../actions/UserActions';
-import swal from 'sweetalert2';
 
 /*
  * Component

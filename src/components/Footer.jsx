@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+
+/* Libs */
 import { TiChevronLeft } from 'react-icons/lib/ti'
 
-/*
- * Component
- */
 class Footer extends Component {
 	constructor(props) {
 		super(props);
@@ -27,9 +26,7 @@ class Footer extends Component {
 	}
 }
 
-/*
- * Style
- */
+/* Style */
 const styles = {
 	footer: {
 		position: 'fixed',

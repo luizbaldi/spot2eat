@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 /* Components */
 import FullScreenContainer from '../components/FullScreenContainer';
 
-/* Libs */
+/* Redux */
 import { getRandomUserSpot } from '../actions/SpotsActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

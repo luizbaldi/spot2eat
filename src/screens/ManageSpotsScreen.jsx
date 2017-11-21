@@ -7,6 +7,8 @@ import Grid from '../components/Grid';
 /* Libs */
 import axios from 'axios';
 import swal from 'sweetalert2';
+
+/* Redux */
 import { connect } from 'react-redux';
 import { loadSpots, insertSpot } from '../actions/SpotsActions';
 import { bindActionCreators } from 'redux';
@@ -24,16 +26,15 @@ class ManageSpotsScreen extends Component {
 		this.onRemoveSpots = this.onRemoveSpots.bind(this);
 		this.setLoadingState = this.setLoadingState.bind(this);
 	}
-	onSelectSpot(spot) {
+	onSelectSpot(spot, spotIndex) {
 		let selectedSpots = this.state.selectedSpots;
-		
-		let spotToRemoveIndex = selectedSpots.findIndex(currentSpot => currentSpot.spotId === spot.spotId);
+		let spotToRemoveIndex = selectedSpots.findIndex((currentSpot, index) => currentSpot.id === spotIndex);
 
 		// Handle if spot is being selected or unselected
 		if (spotToRemoveIndex !== -1) {
 			selectedSpots.splice(spotToRemoveIndex, 1);
 		} else {
-			selectedSpots.push(spot);
+			selectedSpots.push(Object.assign(spot, { id: spotIndex }));
 		}
 
 		this.setState({

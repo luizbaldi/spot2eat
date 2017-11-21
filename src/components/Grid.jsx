@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+
+/* Libs */
+import _ from 'lodash';
+import { FaCheck } from 'react-icons/lib/fa';
+
+/* Components */
 import AddNewSpotModal from './modal/AddNewSpot';
 import Button from './Button';
-import swal from 'sweetalert2';
 import Loader from './Loader';
-import { FaCheck } from 'react-icons/lib/fa';
-import _ from 'lodash';
+
 
 class Grid extends Component {
     constructor(props) {
@@ -41,7 +45,7 @@ class Grid extends Component {
         });
     }
     render() {
-        const columns = ['', 'Id', 'Nome'];
+        const columns = ['', 'Nome'];
         return (
             <div>
                 {this.state.isLoading ? 
@@ -75,7 +79,7 @@ class Grid extends Component {
                                                 <tr 
                                                     key={index}
                                                     style={this.props.selectedSpots.includes(spot) ? style.selectedRow : style.row  }
-                                                    onClick={() => this.props.onSelectSpot(spot)} 
+                                                    onClick={() => this.props.onSelectSpot(spot, index)} 
                                                 >
                                                     <td style={style.checkbox}>
                                                         {this.props.selectedSpots.includes(spot) ?
@@ -83,7 +87,6 @@ class Grid extends Component {
                                                             : null        
                                                         }
                                                     </td>
-                                                    <td>{index}</td>
                                                     <td>{spot.name}</td>
                                                 </tr>
                                             )
@@ -163,6 +166,6 @@ const style = {
         fontSize: '1.4em',
         padding: '40px'
     }
-}
+};
 
 export default Grid;

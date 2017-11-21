@@ -1,11 +1,10 @@
 import React from 'react';
+
+/* Components */
 import Header from './Header';
 import Footer from './Footer';
 import Loader from './Loader';
 
-/*
- * Component
- */
 const FullScreenContainer = (props) => {
 	let newStyle = Object.assign(styles.container, props.style);
 	return (
@@ -31,9 +30,7 @@ const FullScreenContainer = (props) => {
 	);
 }
 
-/*
- * Style
- */
+/* Style */
 const styles = {
 	container: {
 		position: 'absolute',

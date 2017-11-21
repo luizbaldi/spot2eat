@@ -1,4 +1,3 @@
-import axios from 'axios';
 import firebase from '../util/fire';
 
 import { getRandomInt } from '../util/util';
@@ -45,13 +44,4 @@ const _getRandomSpot = (spots, currentUser) => {
     }
 
     return spot;
-};
-
-const _loadSpots = (spotsUrl, currentUser) => {
-  return axios.get(spotsUrl)
-        .then(({ data }) => currentUser ? data.filter(spot => spot.userId === currentUser.id) : [])
-        .catch(err => {
-            console.log('Error loading spots', err);
-            return [];
-        });
 };

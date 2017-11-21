@@ -1,17 +1,12 @@
 import React from 'react';
 
-/*
- * Component
- */
 const Button = ({label, onClick}) => {
     return (
         <button style={style} onClick={onClick} type="button">{label}</button>
     );
 };
 
-/*
- * Style
- */
+/* Style */
 const style = {
     background: '#1b998b',
     border: 'none',

@@ -8,6 +8,8 @@ import Button from '../components/Button';
 import axios from 'axios';
 import swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+
+/* Redux */
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser } from '../actions/UserActions';

@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
-import ReduxPromise from 'redux-promise';
 import thunk from 'redux-thunk';
 
 /*
@@ -15,7 +14,7 @@ import 'css-reset/reset.css';
 import './style/general.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise, thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 ReactDOM.render(
 	<Provider store={createStoreWithMiddleware(reducers)}>

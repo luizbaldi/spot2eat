@@ -16,6 +16,7 @@ const SidebarContent = ({user, onManageSpotsClick, onLogoutClick, onSelectPlaceC
 	);
 };
 
+/* Style */
 const styles = {
 	menu: {
     	height: '100%',

@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+
+/* Components */
 import FullScreenContainer from '../components/FullScreenContainer';
 import Button from '../components/Button';
+
+/* Libs */
+import axios from 'axios';
 import swal from 'sweetalert2';
+
+/* Redux */
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser } from '../actions/UserActions';
 
-/* Component */
 class SignUp extends Component {
 	constructor(props) {
 		super(props);
