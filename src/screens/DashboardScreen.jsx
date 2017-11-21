@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 /* Components */
 import FullScreenContainer from '../components/FullScreenContainer';
 
+/* Libs */
+import swal from 'sweetalert2';
+
 /* Redux */
 import { getRandomUserSpot } from '../actions/SpotsActions';
 import { connect } from 'react-redux';
@@ -28,7 +31,13 @@ class Dashboard extends Component {
 		this.playDrumsSound()
 			.then(() => {
 				this.setLoadingState(false);
-				this.props.getRandomUserSpot(this.props.spots, this.props.user);
+				this.props.getRandomUserSpot(this.props.spots, this.props.user, () => {
+					swal(
+						'Ops...',
+						'Vá em Menu Lateral -> Gerenciar Restaurantes e cadastre seus spots :)',
+						'info'
+					);
+				});
 			});
 	}
 	playDrumsSound() {
@@ -42,15 +51,15 @@ class Dashboard extends Component {
 	}
 	getLocationMessage() {
 		return this.props.currentSpot
-			? this.props.currentSpot.name
-			: 'Nenhum local selecionado ou você ainda não possui locais cadastrados'
+			? `Local: ${this.props.currentSpot.name}`
+			: 'Nenhum local selecionado'
 	}
 	render() {
 		return (
 			<FullScreenContainer {...this.props} showHeader screenName="Dashboard" loadingState={this.state.isLoading}>
 				<div style={styles.content}>
 					<div style={styles.result}>
-						<p style={styles.resultText}>Local: {this.getLocationMessage()}</p>
+						<p style={styles.resultText}>{this.getLocationMessage()}</p>
 					</div>
 					<button 
 						style={styles.button}

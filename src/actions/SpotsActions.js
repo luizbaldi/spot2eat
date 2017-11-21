@@ -1,5 +1,5 @@
 import firebase from '../util/fire';
-
+import _ from 'lodash';
 import { getRandomInt } from '../util/util';
 
 /* Action Types */
@@ -21,26 +21,35 @@ export function loadSpots(currentUser) {
     }
 }
 
-export function insertSpot(spot) {
-    return dispatch => firebase.push(spot);
+export function insertSpot(spot, success) {
+    return dispatch => {
+        success()
+        firebase.push(spot)
+    };
 }
 
-export function getRandomUserSpot(spots, currentUser) {
+export function updateSpots(spots) {
+    return dispatch => firebase.update(spots);
+}
+
+export function getRandomUserSpot(spots, currentUser, emptySpotsCallback) {
+    const randomSpot = _getRandomSpot(spots, currentUser, emptySpotsCallback);
     return {
         type: GET_RANDOM_SPOT,
-        payload: _getRandomSpot(spots, currentUser)
+        payload: randomSpot
     };
 }
 
 /* Util methods */
-const _getRandomSpot = (spots, currentUser) => {
-    let spot = null;
-    const avaibleSpots = spots.filter(spot => spot.userId === currentUser.id);
+const _getRandomSpot = (spots, currentUser, emptySpotsCallback) => {
+    const avaibleSpots = _.filter(spots, spot => spot.userId === currentUser.id);
 
+    let spot;
     if (avaibleSpots.length) {
         spot = avaibleSpots[getRandomInt(0, avaibleSpots.length - 1)];
     } else {
-        spot = avaibleSpots;
+        emptySpotsCallback();
+        spot = null;
     }
 
     return spot;

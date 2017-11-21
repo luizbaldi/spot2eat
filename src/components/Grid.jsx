@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 /* Libs */
 import _ from 'lodash';
 import { FaCheck } from 'react-icons/lib/fa';
+import swal from 'sweetalert2';
 
 /* Components */
 import AddNewSpotModal from './modal/AddNewSpot';
@@ -39,10 +40,20 @@ class Grid extends Component {
         });
     }
     onAddNewSpot(spot) {
-        this.props.insertSpot({
-            userId: this.props.currentUser.id,
-            name: spot.spotName
-        });
+        this.props.insertSpot(
+            {
+                userId: this.props.currentUser.id,
+                name: spot.spotName,
+            },
+            () => {
+                swal(
+                    'Sucesso!',
+                    'Seu novo local foi adicionado :)',
+                    'success'
+                );
+                this.onModalStateChange('close');
+            }
+        );
     }
     render() {
         const columns = ['', 'Nome'];
@@ -87,7 +98,7 @@ class Grid extends Component {
                                                             : null        
                                                         }
                                                     </td>
-                                                    <td>{spot.name}</td>
+                                                    <td style={style.nameColumn}>{spot.name}</td>
                                                 </tr>
                                             )
                                         })}
@@ -141,7 +152,8 @@ const style = {
     },
     checkbox: {
         width: '55px',
-        color: '#3EFF3B'
+        color: '#3EFF3B',
+        position: 'absolute'
     },
     fullButton: {
         width: '96%',
@@ -165,6 +177,9 @@ const style = {
         verticalAlign: 'middle',
         fontSize: '1.4em',
         padding: '40px'
+    },
+    nameColumn: {
+        width: '100%'
     }
 };
 

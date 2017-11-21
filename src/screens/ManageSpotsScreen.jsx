@@ -7,10 +7,11 @@ import Grid from '../components/Grid';
 /* Libs */
 import axios from 'axios';
 import swal from 'sweetalert2';
+import _ from 'lodash';
 
 /* Redux */
 import { connect } from 'react-redux';
-import { loadSpots, insertSpot } from '../actions/SpotsActions';
+import { loadSpots, insertSpot, updateSpots } from '../actions/SpotsActions';
 import { bindActionCreators } from 'redux';
 
 class ManageSpotsScreen extends Component {
@@ -48,21 +49,17 @@ class ManageSpotsScreen extends Component {
 	}
 	onRemoveSpots() {
 		let selectedSpots = this.state.selectedSpots;
-		let updatedSpots = this.props.spots.filter(spot => {
-			return !selectedSpots.some(spotToRemove => spot.spotId === spotToRemove.spotId);
-		});
-		axios.put("https://api.myjson.com/bins/t7mlr", updatedSpots)
-			.then(() => {
-				swal(
-					'Sucesso',
-					'Restaurantes removidos com sucesso',
-					'success'
-				);
-				this.props.loadSpots(this.props.user);
-				this.setState({
-					selectedSpots: []
-				})
+		let spots = Object.assign({}, this.props.spots);
+
+		_.forEach(spots, spot => {
+			_.forEach(selectedSpots, spotToRemove => {
+				if (spot.id === spotToRemove.id) {
+					spots[spot.id] = null;
+				}
 			});
+		});
+
+		this.props.updateSpots(spots);
 	}
 	render() {
 		return (
@@ -95,6 +92,6 @@ const styles = {
 
 const mapStateToProps = ({ user, spots }) => ({ user, spots });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ loadSpots, insertSpot }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ loadSpots, insertSpot, updateSpots }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageSpotsScreen);
