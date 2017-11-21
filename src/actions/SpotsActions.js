@@ -12,7 +12,7 @@ export function loadSpots(currentUser) {
     /* Old spots url: https://api.myjson.com/bins/t7mlr */
 
     return dispatch => {
-        firebase.on('value', snapshot => {
+        firebase.child('spots').on('value', snapshot => {
             dispatch({
                 type: LOAD_SPOTS,
                 payload: snapshot.val()
@@ -24,12 +24,12 @@ export function loadSpots(currentUser) {
 export function insertSpot(spot, success) {
     return dispatch => {
         success()
-        firebase.push(spot)
+        firebase.child('spots').push(spot)
     };
 }
 
 export function updateSpots(spots) {
-    return dispatch => firebase.update(spots);
+    return dispatch => firebase.child('spots').update(spots);
 }
 
 export function getRandomUserSpot(spots, currentUser, emptySpotsCallback) {

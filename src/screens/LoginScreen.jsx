@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 /* Redux */
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser } from '../actions/UserActions';
+import { doLogin, simulateLogin } from '../actions/UserActions';
 import { loadSpots } from '../actions/SpotsActions';
 
 class LoginScreen extends Component {
@@ -39,45 +39,34 @@ class LoginScreen extends Component {
 		let password = this.state.password;
 		if (username && password) {
 			this.setLoadingState(true);
-	  		axios.get("https://api.myjson.com/bins/1gzisn")
-				.then(response => {
-					this.setLoadingState(false);
-					let currentUser = response.data.find(user => {
-						return username === user.username && password === user.password;
-					});
-					if (currentUser) {
-						swal(
-							'',
-							`Bem vindo ${currentUser.name} :)`,
-							'success'
-						);
-						this.props.setUser(currentUser);
-						this.props.loadSpots(currentUser);
-						this.props.history.push('/dashboard');
-					} else {
-						swal(
-							'Ops...',
-							'Login inválido',
-							'info'
-						);
-					}
-				})
-				.catch(err => {
+			this.props.doLogin(
+				{username, password},
+				(user) => {
 					this.setLoadingState(false);
 					swal(
-						'Ops',
-						'Erro ao realizar login :(',
-						'error'
+						'',
+						`Bem vindo ${user.name} :)`,
+						'success'
 					);
-					console.log(err);
-				});
-		} else {
-			swal(
-				'Ops...',
-				'Por favor digite seu e-mail e senha para prosseguir :)',
-				'info'
+					this.props.doLogin(user);
+					this.props.loadSpots(user);
+					this.props.history.push('/dashboard');
+				},
+				() => {
+					this.setLoadingState(false);
+					swal(
+						'Ops...',
+						'Login inválido',
+						'info'
+					);
+				}
 			);
 		}
+		swal(
+			'Ops...',
+			'Por favor digite seu e-mail e senha para prosseguir :)',
+			'info'
+		);
 	}
 	onFieldChange({target}) {
 		this.setState({
@@ -91,7 +80,7 @@ class LoginScreen extends Component {
 			`Bem vindo ${loginData.name} :)`,
 			'success'
 		);
-		this.props.setUser(loginData);
+		this.props.simulateLogin(loginData);
 		this.props.loadSpots(loginData);
 		this.props.history.push('/dashboard');
 	}
@@ -193,6 +182,6 @@ const styles = {
 	}
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ setUser, loadSpots }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ doLogin, loadSpots, simulateLogin }, dispatch);
 
 export default connect(null, mapDispatchToProps)(LoginScreen);
