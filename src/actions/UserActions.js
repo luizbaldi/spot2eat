@@ -1,4 +1,4 @@
-import firebase from '../util/fire';
+import { ref as firebase, auth } from '../util/fire';
 import _ from 'lodash';
 
 /* Action Types */
@@ -9,15 +9,13 @@ export function doLogin(userData, success, error) {
     return dispatch => {
         firebase.child('users').on('value', snapshot => {
             const users = snapshot.val();
+            console.log('Called firebase users listener', users);
             let currentUser = _.find(users, user => {
                 return userData.username === user.username && userData.password === user.password;
             });
             if (currentUser) {
-                success();
-                return {
-                    type: SET_USER,
-                    payload: currentUser
-                }; 
+                success(currentUser);
+                setUser(currentUser); 
             } else {
                 error();
             }
@@ -25,13 +23,9 @@ export function doLogin(userData, success, error) {
     }
 };
 
-export function simulateLogin(user) {
+export function setUser(user) {
     return {
         type: SET_USER,
         payload: user
     };
-}
-
-export function setUser() {
-    return 'potatoe';
 }

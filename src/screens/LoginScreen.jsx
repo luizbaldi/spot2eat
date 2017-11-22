@@ -5,14 +5,13 @@ import FullScreenContainer from '../components/FullScreenContainer';
 import Button from '../components/Button';
 
 /* Libs */
-import axios from 'axios';
 import swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
 /* Redux */
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { doLogin, simulateLogin } from '../actions/UserActions';
+import { doLogin, setUser } from '../actions/UserActions';
 import { loadSpots } from '../actions/SpotsActions';
 
 class LoginScreen extends Component {
@@ -48,7 +47,6 @@ class LoginScreen extends Component {
 						`Bem vindo ${user.name} :)`,
 						'success'
 					);
-					this.props.doLogin(user);
 					this.props.loadSpots(user);
 					this.props.history.push('/dashboard');
 				},
@@ -80,7 +78,7 @@ class LoginScreen extends Component {
 			`Bem vindo ${loginData.name} :)`,
 			'success'
 		);
-		this.props.simulateLogin(loginData);
+		this.props.setUser(loginData);
 		this.props.loadSpots(loginData);
 		this.props.history.push('/dashboard');
 	}
@@ -182,6 +180,6 @@ const styles = {
 	}
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ doLogin, loadSpots, simulateLogin }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ doLogin, loadSpots, setUser }, dispatch);
 
 export default connect(null, mapDispatchToProps)(LoginScreen);

@@ -5,7 +5,6 @@ import FullScreenContainer from '../components/FullScreenContainer';
 import Grid from '../components/Grid';
 
 /* Libs */
-import axios from 'axios';
 import swal from 'sweetalert2';
 import _ from 'lodash';
 

@@ -7,6 +7,7 @@ import Button from '../components/Button';
 /* Libs */
 import axios from 'axios';
 import swal from 'sweetalert2';
+import { auth } from '../util/fire';
 
 /* Redux */
 import { connect } from 'react-redux';
@@ -19,7 +20,7 @@ class SignUp extends Component {
 
 		this.state = {
 			name: '',
-			username: '',
+			email: '',
 			password: '',
 			isLoading: false
 		};
@@ -40,59 +41,28 @@ class SignUp extends Component {
 	}
 	signUp() {
 		let name = this.state.name;
-		let username = this.state.username;
+		let email = this.state.email;
 		let password = this.state.password;
-		if (name && username && password) {
+		if (name && email && password) {
 			this.setLoadingState(true);
-			axios.get("https://api.myjson.com/bins/1gzisn")
-				.then(({data}) => {
-					this.setLoadingState(false);
-					let isUsernameAvaible = !data.some(user => {
-						return username === user.username;
-					});
-					if (isUsernameAvaible) {
-						let newUser = {
-							id: data[data.length - 1].id + 1,
-							name: name,
-							username: username,
-							password: password
-						};
-						data.push(newUser);
-						axios.put("https://api.myjson.com/bins/1gzisn", data)
-							.then(response => {
-								this.props.setUser(newUser);
-								this.props.history.push('/dashboard');
-								swal(
-									'Successo!',
-									'Bem vindo ao barco :)',
-									'success'
-								);
-							})
-							.catch(err => {
-								swal(
-									'Ops', 
-									'Erro ao realizar cadastro. Tente novamente mais tarde.',
-									'error'
-								);
-								console.log(err);
-							});
-					} else {
-						swal(
-							'Ops',
-							'O usuário escolhido já está em uso, tente outro.',
-							'info'
-						);
-					}
-				})
-				.catch(err => {
-					this.setLoadingState(false);
-					swal(
-						'Ops', 
-						'Algo de errado aconteceu. Tente novamente mais tarde',
-						'info'
-					);
-					console.log(err);
-				});
+			auth.createUserWithEmailAndPassword(email, password).then(response => {
+				this.setLoadingState(false);
+				this.props.setUser({ name, email, password });
+				this.props.history.push('/dashboard');
+				swal(
+					'Successo!',
+					'Bem vindo ao barco :)',
+					'success'
+				);
+			})
+			.catch(err => {
+				this.setLoadingState(false);
+				swal(
+					'Ops',
+					err.message,
+					'error'
+				);
+			});
 		} else {
 			swal(
 				'',
@@ -116,9 +86,9 @@ class SignUp extends Component {
 						</div>
 						<div style={styles.row}>
 							<input style={styles.input}
-								placeholder="Username"
+								placeholder="E-mail"
 								onChange={this.onFieldChange}
-								name="username"
+								name="email"
 							/>
 						</div>
 						<div style={styles.row}>

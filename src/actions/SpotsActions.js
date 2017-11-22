@@ -1,4 +1,4 @@
-import firebase from '../util/fire';
+import { ref as firebase } from '../util/fire';
 import _ from 'lodash';
 import { getRandomInt } from '../util/util';
 
