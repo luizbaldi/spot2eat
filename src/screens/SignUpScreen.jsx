@@ -5,7 +5,6 @@ import FullScreenContainer from '../components/FullScreenContainer';
 import Button from '../components/Button';
 
 /* Libs */
-import axios from 'axios';
 import swal from 'sweetalert2';
 import { auth } from '../util/fire';
 

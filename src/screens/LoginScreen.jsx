@@ -7,11 +7,12 @@ import Button from '../components/Button';
 /* Libs */
 import swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import { auth } from '../util/fire';
 
 /* Redux */
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { doLogin, setUser } from '../actions/UserActions';
+import { setUser } from '../actions/UserActions';
 import { loadSpots } from '../actions/SpotsActions';
 
 class LoginScreen extends Component {
@@ -19,7 +20,7 @@ class LoginScreen extends Component {
 		super(props);
 
 		this.state = {
-			username: '',
+			email: '',
 			password: '',
 			isLoading: false
 		};
@@ -34,37 +35,36 @@ class LoginScreen extends Component {
 		});
 	}
 	validateLogin() {
-		let username = this.state.username;
+		let email = this.state.email;
 		let password = this.state.password;
-		if (username && password) {
+		if (email && password) {
 			this.setLoadingState(true);
-			this.props.doLogin(
-				{username, password},
-				(user) => {
-					this.setLoadingState(false);
-					swal(
-						'',
-						`Bem vindo ${user.name} :)`,
-						'success'
-					);
-					this.props.loadSpots(user);
-					this.props.history.push('/dashboard');
-				},
-				() => {
-					this.setLoadingState(false);
-					swal(
-						'Ops...',
-						'Login inválido',
-						'info'
-					);
-				}
+			auth.signInWithEmailAndPassword(email, password).then(response => {
+				this.props.setUser({ email, password })
+				this.setLoadingState(false);
+				swal(
+					'',
+					`Bem vindo :)`,
+					'success'
+				);
+				this.props.loadSpots({ email, password });
+				this.props.history.push('/dashboard');
+			})
+			.catch(err => {
+				this.setLoadingState(false);
+				swal(
+					'Ops',
+					err.message,
+					'error'
+				);
+			});
+		} else {
+			swal(
+				'Ops...',
+				'Por favor digite seu e-mail e senha para prosseguir :)',
+				'info'
 			);
 		}
-		swal(
-			'Ops...',
-			'Por favor digite seu e-mail e senha para prosseguir :)',
-			'info'
-		);
 	}
 	onFieldChange({target}) {
 		this.setState({
@@ -72,7 +72,7 @@ class LoginScreen extends Component {
 		});
 	}
 	testLogin() {
-		const loginData = {id: 1, name: "Administrador", username: "admin", password: "123"};
+		const loginData = {id: 1, name: "Administrador", email: "admin", password: "123"};
 		swal(
 			'',
 			`Bem vindo ${loginData.name} :)`,
@@ -92,7 +92,7 @@ class LoginScreen extends Component {
 							<input style={styles.input}
 								placeholder="Usuário"
 								onChange={this.onFieldChange}
-								name="username" />
+								name="email" />
 						</div>
 
 						<div style={styles.row}>
@@ -180,6 +180,6 @@ const styles = {
 	}
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ doLogin, loadSpots, setUser }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ loadSpots, setUser }, dispatch);
 
 export default connect(null, mapDispatchToProps)(LoginScreen);
