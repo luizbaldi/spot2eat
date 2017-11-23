@@ -27,6 +27,7 @@ class Header extends Component {
 		this.onManageSpotsClick = this.onManageSpotsClick.bind(this);
 		this.onLogoutClick = this.onLogoutClick.bind(this);
 		this.onSelectPlaceClick = this.onSelectPlaceClick.bind(this);
+		this.onSetOpen = this.onSetOpen.bind(this);
 	}
 
 	componentWillMount() {
@@ -64,6 +65,10 @@ class Header extends Component {
 		this.props.history.push('/dashboard');
 	}
 
+	onSetOpen(open) {
+		this.setState({ sidebarOpen: open });
+	}
+
 	render() {
 		let sidebar = <SidebarContent
 							onManageSpotsClick={this.onManageSpotsClick}
@@ -71,7 +76,9 @@ class Header extends Component {
 							onSelectPlaceClick={this.onSelectPlaceClick} />;
 		const sidebarProps = {
 			sidebar: sidebar,
-			open: this.state.sidebarOpen
+			open: this.state.sidebarOpen,
+			onSetOpen: this.onSetOpen,
+			shadow: true
 		};
 		return (
 			<div>
