@@ -23,6 +23,7 @@ class Grid extends Component {
         this.onModalStateChange = this.onModalStateChange.bind(this);
         this.onAddNewSpot = this.onAddNewSpot.bind(this);
         this.setLoadingState = this.setLoadingState.bind(this);
+        this.renderGridRows = this.renderGridRows.bind(this);
     }
     /*
      * @param: state
@@ -42,7 +43,7 @@ class Grid extends Component {
     onAddNewSpot(spot) {
         this.props.insertSpot(
             {
-                userId: this.props.currentUser.id,
+                userId: this.props.user.id,
                 name: spot.spotName,
             },
             () => {
@@ -55,6 +56,28 @@ class Grid extends Component {
             }
         );
     }
+    renderGridRows() {
+        const spots = Object.assign({}, this.props.spots);
+        const gridRows = Object.keys(spots).map(spotId => {
+            const spot = spots[spotId];
+            return (
+                <tr
+                    key={spotId}
+                    style={this.props.selectedSpots[spotId] ? style.selectedRow : style.row}
+                    onClick={() => this.props.onSelectSpot(spot, spotId)}
+                >
+                    <td style={style.checkbox}>
+                        {this.props.selectedSpots[spotId] ?
+                            <FaCheck />
+                            : null
+                        }
+                    </td>
+                    <td style={style.nameColumn}>{spot.name}</td>
+                </tr>
+            )
+        });
+        return gridRows;
+    }
     render() {
         const columns = ['', 'Nome'];
         return (
@@ -62,13 +85,13 @@ class Grid extends Component {
                 {this.state.isLoading ? 
                     <Loader />
                     : <div>
-                        <div style={this.props.selectedSpots.length ? style.halfButton : style.fullButton}>
+                        <div style={Object.keys(this.props.selectedSpots).length ? style.halfButton : style.fullButton}>
                             <Button
                                 label={"Adicionar novo local"}
                                 onClick={() => this.onModalStateChange('open')}
                             />
                         </div>
-                        { this.props.selectedSpots.length ?
+                        { Object.keys(this.props.selectedSpots).length ?
                             <div style={style.halfButton}>
                                 <Button
                                     label={"Remover locais selecionados"}
@@ -84,29 +107,12 @@ class Grid extends Component {
                                         {columns.map((column, idx) => <th key={idx}>{column}</th>)}
                                     </tr>
                                 </thead>
-                                <tbody>
-                                        {_.map(this.props.spots, (spot, index) => {
-                                            return (
-                                                <tr 
-                                                    key={index}
-                                                    style={this.props.selectedSpots.includes(spot) ? style.selectedRow : style.row  }
-                                                    onClick={() => this.props.onSelectSpot(spot, index)} 
-                                                >
-                                                    <td style={style.checkbox}>
-                                                        {this.props.selectedSpots.includes(spot) ?
-                                                            <FaCheck />
-                                                            : null        
-                                                        }
-                                                    </td>
-                                                    <td style={style.nameColumn}>{spot.name}</td>
-                                                </tr>
-                                            )
-                                        })}
-                                </tbody>
+                                <tbody>{this.renderGridRows()}</tbody>
                             </table>
                         : <div style={style.emptyMessageContainer}>
                             <span style={style.emptyMessageText}>
-                                Oops, parece que você ainda não possui nenhum local cadastrado. Adicione novos locais clicando acima :)
+                                <p>Oops, parece que você ainda não possui nenhum local cadastrado.</p>
+                                <p>Adicione novos locais acima :)</p>
                             </span>
                         </div>
                         }

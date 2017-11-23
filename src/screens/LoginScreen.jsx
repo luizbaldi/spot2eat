@@ -40,7 +40,7 @@ class LoginScreen extends Component {
 		if (email && password) {
 			this.setLoadingState(true);
 			auth.signInWithEmailAndPassword(email, password).then(response => {
-				this.props.setUser({ email, password })
+				this.props.setUser({ email, password, id: response.uid });
 				this.setLoadingState(false);
 				swal(
 					'',
@@ -72,10 +72,10 @@ class LoginScreen extends Component {
 		});
 	}
 	testLogin() {
-		const loginData = {id: 1, name: "Administrador", email: "admin", password: "123"};
+		const loginData = { id: "PUH15JX3NMOiV7FyD6t2wwtknPl2", email: "admin", password: "123"};
 		swal(
 			'',
-			`Bem vindo ${loginData.name} :)`,
+			`Bem vindo :)`,
 			'success'
 		);
 		this.props.setUser(loginData);

@@ -46,7 +46,7 @@ class SignUp extends Component {
 			this.setLoadingState(true);
 			auth.createUserWithEmailAndPassword(email, password).then(response => {
 				this.setLoadingState(false);
-				this.props.setUser({ name, email, password });
+				this.props.setUser({ name, email, password, id: response.uid });
 				this.props.history.push('/dashboard');
 				swal(
 					'Successo!',

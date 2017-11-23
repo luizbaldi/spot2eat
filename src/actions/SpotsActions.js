@@ -8,7 +8,7 @@ export const LOAD_SPOTS      = 'LOAD_SPOTS';
 export const INSERT_SPOT     = 'INSERT_SPOT';
 
 /* Action Creators */
-export function loadSpots(currentUser) {
+export function loadSpots() {
     /* Old spots url: https://api.myjson.com/bins/t7mlr */
 
     return dispatch => {
@@ -23,8 +23,8 @@ export function loadSpots(currentUser) {
 
 export function insertSpot(spot, success) {
     return dispatch => {
-        success()
-        firebase.child('spots').push(spot)
+        success();
+        firebase.child('spots').push(spot);
     };
 }
 

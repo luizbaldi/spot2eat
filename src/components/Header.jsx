@@ -32,11 +32,7 @@ class Header extends Component {
 	componentWillMount() {
 		let user = this.props.user;
 
-		if (user) {
-			this.setState({
-				user: user
-			});
-		} else {
+		if (!user) {
 			swal({
 				title: 'Ops!',
 				text: 'Você precisa estar logado para continuar',
@@ -70,7 +66,6 @@ class Header extends Component {
 
 	render() {
 		let sidebar = <SidebarContent
-							user={this.state.user}
 							onManageSpotsClick={this.onManageSpotsClick}
 							onLogoutClick={this.onLogoutClick}
 							onSelectPlaceClick={this.onSelectPlaceClick} />;
