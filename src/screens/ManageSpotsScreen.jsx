@@ -57,12 +57,21 @@ class ManageSpotsScreen extends Component {
 
 		this.props.updateSpots(spots);
 	}
+	filterUserSpots() {
+		let userSpots = {};
+		_.forEach(this.props.spots, (spot, id) => {
+			if (spot.userId === this.props.user.id) {
+				userSpots[id] = spot;
+			}
+		});
+		return userSpots;
+	}
 	render() {
 		return (
 			<FullScreenContainer {...this.props} showHeader showFooter screenName="Gerenciar Locais" loadingState={this.state.isLoading}>
 				<div style={styles.content}>
 					<Grid 
-						spots={_.filter(this.props.spots, spot => spot.userId === this.props.user.id)}
+						spots={this.filterUserSpots()}
 						selectedSpots={this.state.selectedSpots}
 						onSelectSpot={this.onSelectSpot}
 						onRemoveSpots={this.onRemoveSpots} 

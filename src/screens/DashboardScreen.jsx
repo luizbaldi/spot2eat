@@ -41,11 +41,9 @@ class Dashboard extends Component {
 			});
 	}
 	playDrumsSound() {
-		/* Plays audio to show result only after 1 sec (just a little drama) */
-		const drumsAudio = new Audio('http://sprott.physics.wisc.edu/wop/sounds/Drumroll-1.wav');
-		drumsAudio.play();
+		/* Just a little drama pause */
 		const promise = new Promise((resolve, reject) => {
-			setTimeout(() => resolve(), 1000);
+			setTimeout(() => resolve(), 1200);
 		});
 		return promise; 
 	}

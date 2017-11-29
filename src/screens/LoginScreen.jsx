@@ -8,6 +8,7 @@ import Button from '../components/Button';
 import swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import { auth } from '../util/fire';
+import project from '../../package.json';
 
 /* Redux */
 import { connect } from 'react-redux';
@@ -88,6 +89,7 @@ class LoginScreen extends Component {
 				<div style={styles.content}>
 					<form style={styles.form}>
 						<img style={styles.logo} alt="Spot2Eat" src="img/color-logo-764x223.png"/>
+						<span style={styles.version}>v{project.version}</span>
 						<div style={styles.row}>
 							<input style={styles.input}
 								placeholder="Usuário"
@@ -145,7 +147,6 @@ const styles = {
 	},
 
 	logo: {
-		marginBottom: '25px',
 		width: '100%'
 	},
 
@@ -183,6 +184,14 @@ const styles = {
 
 	button: {
 		width: '100%'
+	},
+
+	version: {
+		color: '#101010',
+		fontWeight: 'bold',
+		position: 'absolute',
+		right: '0',
+		bottom: '0',
 	}
 };
 

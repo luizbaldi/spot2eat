@@ -9,8 +9,6 @@ export const INSERT_SPOT     = 'INSERT_SPOT';
 
 /* Action Creators */
 export function loadSpots() {
-    /* Old spots url: https://api.myjson.com/bins/t7mlr */
-
     return dispatch => {
         firebase.child('spots').on('value', snapshot => {
             dispatch({

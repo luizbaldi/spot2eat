@@ -104,7 +104,7 @@ class Grid extends Component {
                             </div>
                             : null
                         }
-                        { this.props.spots ?
+                        { !_.isEmpty(this.props.spots) ?
                             <table style={style.table}>
                                 <thead>
                                     <tr style={style.head}>
@@ -115,8 +115,8 @@ class Grid extends Component {
                             </table>
                         : <div style={style.emptyMessageContainer}>
                             <span style={style.emptyMessageText}>
-                                <p>Oops, parece que você ainda não possui nenhum local cadastrado.</p>
-                                <p>Adicione novos locais acima :)</p>
+                                <p style={style.paragraph}>Oops, parece que você ainda não possui nenhum local cadastrado.</p>
+                                <p style={style.paragraph}>Adicione novos locais acima :)</p>
                             </span>
                         </div>
                         }
@@ -190,6 +190,9 @@ const style = {
     },
     nameColumn: {
         width: '100%'
+    },
+    paragraph: {
+        lineHeight: '135%'
     }
 };
 
