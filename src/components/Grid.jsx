@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 /* Libs */
-import _ from 'lodash';
 import { FaCheck } from 'react-icons/lib/fa';
 import swal from 'sweetalert2';
+import _ from 'lodash';
 
 /* Components */
 import AddNewSpotModal from './modal/AddNewSpot';
@@ -78,6 +78,10 @@ class Grid extends Component {
         });
         return gridRows;
     }
+    hasSelectedSpots() {
+        const hasSelectedSpots = _.some(this.props.selectedSpots, spot => spot != null);
+        return hasSelectedSpots && !_.isEmpty(this.props.selectedSpots);
+    }
     render() {
         const columns = ['', 'Nome'];
         return (
@@ -85,13 +89,13 @@ class Grid extends Component {
                 {this.state.isLoading ? 
                     <Loader />
                     : <div>
-                        <div style={Object.keys(this.props.selectedSpots).length ? style.halfButton : style.fullButton}>
+                        <div style={this.hasSelectedSpots() ? style.halfButton : style.fullButton}>
                             <Button
                                 label={"Adicionar novo local"}
                                 onClick={() => this.onModalStateChange('open')}
                             />
                         </div>
-                        { Object.keys(this.props.selectedSpots).length ?
+                        { this.hasSelectedSpots() ?
                             <div style={style.halfButton}>
                                 <Button
                                     label={"Remover locais selecionados"}

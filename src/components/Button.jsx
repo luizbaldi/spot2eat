@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Button = ({label, onClick}) => {
+const Button = ({label, onClick, style}) => {
     return (
-        <button style={style} onClick={onClick} type="button">{label}</button>
+        <button style={Object.assign(baseStyle, style)} onClick={onClick} type="button">{label}</button>
     );
 };
 
 /* Style */
-const style = {
+const baseStyle = {
     background: '#1b998b',
     border: 'none',
     borderRadius: '22px',

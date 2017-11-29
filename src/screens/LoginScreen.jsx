@@ -107,12 +107,14 @@ class LoginScreen extends Component {
 							<Button 
 								label="Login"
 								onClick={this.validateLogin}
+								style={styles.button}
 							/>
 						</div>
 						<div style={styles.row}>
 							<Button 
 								label="Login Teste"
 								onClick={() => this.testLogin()}
+								style={styles.button}
 							/>
 						</div>
 
@@ -176,6 +178,10 @@ const styles = {
 		lineHeight: '44px',
 		textDecoration: 'none',
 		textAlign: 'center',
+		width: '100%'
+	},
+
+	button: {
 		width: '100%'
 	}
 };

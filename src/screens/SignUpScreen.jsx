@@ -27,6 +27,7 @@ class SignUp extends Component {
 		this.onFieldChange = this.onFieldChange.bind(this);
 		this.signUp = this.signUp.bind(this);
 		this.setLoadingState = this.setLoadingState.bind(this);
+		this.goBack = this.goBack.bind(this);
 	}
 	setLoadingState(loadingState) {
 		this.setState({
@@ -70,9 +71,12 @@ class SignUp extends Component {
 			);
 		}
 	}
+	goBack() {
+		this.props.history.goBack();
+	}
 	render() {
 		return (
-			<FullScreenContainer {...this.props} showFooter loadingState={this.state.isLoading}>
+			<FullScreenContainer {...this.props} loadingState={this.state.isLoading}>
 				<div style={styles.content}>
 					<span style={styles.title}>Cadastre-se abaixo :)</span>
 					<form style={styles.form}>
@@ -99,8 +103,14 @@ class SignUp extends Component {
 						</div>
 						<div style={styles.row}>
 							<Button 
+								label="Voltar"
+								onClick={this.goBack}
+								style={styles.button}
+							/>
+							<Button 
 								label="Cadastrar"
 								onClick={this.signUp}
+								style={styles.button}
 							/>
 						</div>
 					</form>
@@ -150,7 +160,13 @@ const styles = {
 		display: 'block',
 		marginBottom: '32px',
 		fontSize: '1.4em'
+	},
+
+	button: {
+		width: '48%',
+		margin: '0 1%'
 	}
+	
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({ setUser }, dispatch);

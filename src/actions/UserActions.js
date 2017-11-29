@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 /* Action Types */
 export const SET_USER      = 'SET_USER';
 
