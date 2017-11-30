@@ -44,7 +44,7 @@ class Grid extends Component {
         this.props.insertSpot(
             {
                 userId: this.props.user.id,
-                name: spot.spotName,
+                ...spot
             },
             () => {
                 swal(
@@ -73,17 +73,28 @@ class Grid extends Component {
                         }
                     </td>
                     <td style={style.nameColumn}>{spot.name}</td>
+                    <td style={style.daysColumn}>{this.getWeekDaysLabel(spot.selectedDays)}</td>
                 </tr>
             )
         });
         return gridRows;
+    }
+    getWeekDaysLabel(selectedDays) {
+        let weekDays = '';
+        _.forEach(selectedDays, (day, idx, selectedDays) => {
+            if (day) {
+                const comma = _.max(Object.keys(selectedDays)) === idx.toString() ? '' : ',';
+                weekDays += ` ${day.name}${comma}`;
+            }
+        });
+        return weekDays;
     }
     hasSelectedSpots() {
         const hasSelectedSpots = _.some(this.props.selectedSpots, spot => spot != null);
         return hasSelectedSpots && !_.isEmpty(this.props.selectedSpots);
     }
     render() {
-        const columns = ['', 'Nome'];
+        const columns = ['', 'Nome', 'Dias da Semana'];
         return (
             <div>
                 {this.state.isLoading ? 
@@ -132,9 +143,6 @@ class Grid extends Component {
     }
 };
 
-/*
- *
- */
 const style = {
     table: {
         width: '98%',
@@ -189,10 +197,13 @@ const style = {
         padding: '40px'
     },
     nameColumn: {
-        width: '100%'
+        width: '55%'
     },
     paragraph: {
         lineHeight: '135%'
+    },
+    daysColumn: {
+        width: '45%'
     }
 };
 

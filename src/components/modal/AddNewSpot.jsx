@@ -7,7 +7,7 @@ class AddNewSpotModal extends Component {
         super(props);
 
         this.state = {
-            spotName: '',
+            name: '',
             selectedDays: {
                 1: { name: 'Dom' },
                 2: { name: 'Seg' },
@@ -57,7 +57,7 @@ class AddNewSpotModal extends Component {
                 <form>
                     <input placeholder="Nome do local"
                         onChange={this.onFieldChange}
-                        name="spotName"
+                        name="name"
                         style={style.input}
                     />
                 </form>

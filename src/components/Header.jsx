@@ -35,14 +35,11 @@ class Header extends Component {
 
 		if (!user) {
 			this.props.history.push('/');
-			// swal({
-			// 	title: 'Ops!',
-			// 	text: 'Você precisa estar logado para continuar',
-			// 	type: 'info'
-			// })
-			// .then(() => {
-			// 	this.props.history.push('/');
-			// });
+			swal({
+				title: 'Ops!',
+				text: 'Você precisa estar logado para continuar',
+				type: 'info'
+			});
 		}
 	}
 
