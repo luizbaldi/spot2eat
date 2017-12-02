@@ -1,4 +1,5 @@
 import React from 'react';
+import colors from '../util/colors';
 
 const Button = ({label, onClick, style}) => {
     return (
@@ -8,7 +9,7 @@ const Button = ({label, onClick, style}) => {
 
 /* Style */
 const baseStyle = {
-    background: '#1b998b',
+    background: colors.button,
     border: 'none',
     borderRadius: '22px',
     boxShadow: '0 2px 5px rgba(0, 0, 0, .5)',

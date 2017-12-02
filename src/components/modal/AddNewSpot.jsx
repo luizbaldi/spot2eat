@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Button from '../Button';
 import Modal from 'react-modal';
+import colors from '../../util/colors';
+import swal from 'sweetalert2';
 
 class AddNewSpotModal extends Component {
     constructor(props) {
@@ -20,6 +22,7 @@ class AddNewSpotModal extends Component {
         };
 
         this.onFieldChange = this.onFieldChange.bind(this);
+        this.addNewSpot = this.addNewSpot.bind(this);
     }
     onFieldChange({ target }) {
         this.setState({
@@ -35,14 +38,27 @@ class AddNewSpotModal extends Component {
         }
         this.setState({ selectedDays });
     }
+    addNewSpot() {
+        if (this.state.name) {
+            this.props.onAddNewSpot(this.state)
+        } else {
+            swal(
+                'Ops',
+                'Preencha o nome para prosseguir',
+                'info'
+            );
+        }
+    }
     render() {
-        const weekDays = [
-            { id: 1, name: 'Dom' }, 
+        const weekDays = [ 
             { id: 2, name: 'Seg' }, 
             { id: 3, name: 'Ter' }, 
             { id: 4, name: 'Qua' }, 
             { id: 5, name: 'Qui' }, 
-            { id: 6, name: 'Sex' }, 
+            { id: 6, name: 'Sex' }
+        ];
+        const weekendDays = [
+            { id: 1, name: 'Dom' },
             { id: 7, name: 'Sab' }
         ];
 
@@ -62,12 +78,25 @@ class AddNewSpotModal extends Component {
                     />
                 </form>
                 <span style={style.weekDaysLabel}>Dias da semana</span>
-                <div style={style.daysContainer}>
+                <div style={style.daysRow}>
                     {weekDays.map(day => {
                         return (
-                            <span 
+                            <span
                                 key={day.id}
                                 style={this.state.selectedDays[day.id] ? style.weekDay : style.disabledDay}
+                                onClick={() => this.onSelectDay(day)}
+                            >
+                                {day.name}
+                            </span>
+                        )
+                    })}
+                </div>
+                <div style={style.daysRow}>
+                    {weekendDays.map(day => {
+                        return (
+                            <span
+                                key={day.id}
+                                style={this.state.selectedDays[day.id] ? style.weekendDay : style.disabledWeekend}
                                 onClick={() => this.onSelectDay(day)}
                             >
                                 {day.name}
@@ -78,7 +107,7 @@ class AddNewSpotModal extends Component {
                 <div style={style.buttonContainer}>
                     <Button
                         label={'Adicionar'}
-                        onClick={() => this.props.onAddNewSpot(this.state)}
+                        onClick={this.addNewSpot}
                     />
                 </div>
                 <div style={style.buttonContainer}>
@@ -91,6 +120,18 @@ class AddNewSpotModal extends Component {
         );
     }
 }
+
+const defaultStyle = {
+    weekDayButton: {
+        backgroundColor: colors.primary,
+        height: '40px',
+        display: 'inline-block',
+        borderRadius: '4px',
+        lineHeight: '38px',
+        textAlign: 'center',
+        color: '#fafafa',
+    },
+};
 
 const style = {
     buttonContainer: {
@@ -112,40 +153,51 @@ const style = {
         display: 'block',
         marginBottom: '12px',
         fontSize: '1.4em',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: colors.text
     },
     weekDaysLabel: {
         display: 'block',
         textAlign: 'center',
-        margin: '12px 0',
-        fontWeight: 'bold'
+        margin: '14px 0',
+        fontWeight: 'bold',
+        color: colors.text
     },
-    daysContainer: {
-        width: '100%'
+    daysRow: {
+        width: '100%',
+        margin: '6px 0'
     },
     weekDay: {
-        backgroundColor: '#dd5555d9',
-        border: '1px solid #bd6d73',
-        width: '36px',
-        height: '36px',
-        display: 'inline-block',
-        borderRadius: '4px',
-        lineHeight: '32px',
-        textAlign: 'center',
-        margin: '0 3px',
-        color: '#fafafa'
+        ...defaultStyle.weekDayButton,
+        width: '18%',
+        margin: '0 1%'
+    },
+    weekendDay: {
+        ...defaultStyle.weekDayButton,
+        width: '45%',
+        margin: '0 2.5%'
     },
     disabledDay: {
-        backgroundColor: 'rgba(162, 162, 162, 0.85)',
-        border: '1px solid rgb(187, 187, 187)',
-        width: '36px',
-        height: '36px',
+        width: '18%',
+        height: '40px',
         display: 'inline-block',
         borderRadius: '4px',
-        lineHeight: '32px',
+        lineHeight: '38px',
         textAlign: 'center',
-        margin: '0 3px',
-        color: '#fafafa'
+        backgroundColor: 'rgba(162, 162, 162, 0.85)',
+        color: '#fafafa',
+        margin: '0 1%'
+    },
+    disabledWeekend: {
+        width: '45%',
+        height: '40px',
+        display: 'inline-block',
+        borderRadius: '4px',
+        lineHeight: '38px',
+        textAlign: 'center',
+        backgroundColor: 'rgba(162, 162, 162, 0.85)',
+        color: '#fafafa',
+        margin: '0 2.5%'
     }
 };
 
@@ -157,7 +209,7 @@ const modalStyle = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        backgroundColor: 'rgba(255, 220, 222, 0.89)'
+        backgroundColor: colors.secondary
     }
 };
 
