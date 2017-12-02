@@ -30,8 +30,8 @@ export function updateSpots(spots) {
     return dispatch => firebase.child('spots').update(spots);
 }
 
-export function getRandomUserSpot(spots, currentUser, emptySpotsCallback) {
-    const randomSpot = _getRandomSpot(spots, currentUser, emptySpotsCallback);
+export function getRandomUserSpot(spots, filterDays, currentUser, emptySpotsCallback) {
+    const randomSpot = _getRandomSpot(spots, filterDays, currentUser, emptySpotsCallback);
     return {
         type: GET_RANDOM_SPOT,
         payload: randomSpot
@@ -39,8 +39,24 @@ export function getRandomUserSpot(spots, currentUser, emptySpotsCallback) {
 }
 
 /* Util methods */
-const _getRandomSpot = (spots, currentUser, emptySpotsCallback) => {
-    const avaibleSpots = _.filter(spots, spot => spot.userId === currentUser.id);
+const _getRandomSpot = (spots, filterDays, currentUser, emptySpotsCallback) => {
+    console.log(filterDays);
+    const avaibleSpots = _.filter(spots, spot => {
+        let isAvaible = false;
+        
+        if (spot.userId === currentUser.id) {
+            /* Checks if spot days exists in filter days */
+            isAvaible = _.some(spot.selectedDays, (spotDay, spotDayId) => {
+                if (spotDay) {
+                    return _.some(filterDays, (filterDay, filterDayId) => filterDayId.toString() === spotDayId.toString());
+                } else {
+                    return false;
+                }
+            });
+        }
+
+        return isAvaible;
+    });
 
     let spot;
     if (avaibleSpots.length) {
