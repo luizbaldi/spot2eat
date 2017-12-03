@@ -85,7 +85,7 @@ class LoginScreen extends Component {
 	}
 	render() {
 		return (
-			<FullScreenContainer {...this.props} style={styles.page} loadingState={this.state.isLoading}>
+			<FullScreenContainer {...this.props} loadingState={this.state.isLoading}>
 				<div style={styles.content}>
 					<form style={styles.form}>
 						<img style={styles.logo} alt="Spot2Eat" src="img/color-logo-764x223.png"/>
@@ -132,13 +132,6 @@ class LoginScreen extends Component {
 
 /* Style */
 const styles = {
-	page: {
-		background: 'url(img/blue-people-bg.jpg) no-repeat',
-		backgroundPosition: 'center center',
-		backgroundSize: 'cover',
-		color: 'white'
-	},
-
 	content: {
 		bottom: '10px',
 		left: '25px',

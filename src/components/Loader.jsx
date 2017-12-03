@@ -1,14 +1,15 @@
 import React from 'react';
 
 /* Libs */
-import { PacmanLoader } from 'halogen';
+import Spinner from 'react-spinkit';
+import colors from '../util/colors';
 
 const Loader = () => {
     return (
         <div style={styles.container}>
             <span style={styles.content}>
-                <span style={styles.loader}>
-                    <PacmanLoader />
+                <span style={styles.loaderRow}>
+                    <Spinner name="pacman" style={styles.loader} />
                 </span>
             </span>
         </div>
@@ -28,8 +29,13 @@ const styles = {
         display: 'table-cell',
         verticalAlign: 'middle'
     },
-    loader: {
+    loaderRow: {
         display: 'inline-block'
+    },
+    loader: {
+        position: 'absolute',
+        color: colors.button,
+        animation: 'sk-fade-in .3s'
     }
 }
 

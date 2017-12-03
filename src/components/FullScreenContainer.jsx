@@ -6,9 +6,8 @@ import Footer from './Footer';
 import Loader from './Loader';
 
 const FullScreenContainer = (props) => {
-	let newStyle = Object.assign(styles.container, props.style);
 	return (
-		<div style={newStyle}>
+		<div style={styles.container}>
 			{props.loadingState ? 
 				<Loader />
 				: <div>
@@ -33,6 +32,10 @@ const FullScreenContainer = (props) => {
 /* Style */
 const styles = {
 	container: {
+		background: 'url(img/blue-people-bg.jpg) no-repeat',
+		backgroundPosition: 'center center',
+		backgroundSize: 'cover',
+		color: 'white',
 		position: 'absolute',
 		top: 0,
 		bottom: 0,
