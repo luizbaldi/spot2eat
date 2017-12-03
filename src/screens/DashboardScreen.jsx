@@ -37,6 +37,7 @@ class Dashboard extends Component {
 		this.getLocationMessage = this.getLocationMessage.bind(this);
 		this.setModalState = this.setModalState.bind(this);
 		this.setFilter = this.setFilter.bind(this);
+		this.toggleDay = this.toggleDay.bind(this);
 	}
 	setLoadingState(loadingState) {
 		this.setState({
@@ -80,6 +81,15 @@ class Dashboard extends Component {
 			'success'
 		);
 	}
+	toggleDay(day) {
+		const filterDays = this.state.filterDays;
+		if (this.state.filterDays[day.id]) {
+			delete filterDays[day.id];
+		} else {
+			filterDays[day.id] = day;
+		}
+		this.setState({ filterDays });
+	}
 	render() {
 		return (
 			<FullScreenContainer {...this.props} showHeader screenName="Dashboard" loadingState={this.state.isLoading}>
@@ -101,8 +111,9 @@ class Dashboard extends Component {
 				</div>
 				<FilterDaysModal 
 					isOpen={this.state.isFilterModalOpen}
-					closeModal={() => this.setModalState(false)}
 					setFilter={this.setFilter}
+					toggleDay={this.toggleDay}
+					filterDays={this.state.filterDays}
 				/>
 			</FullScreenContainer>
 		);

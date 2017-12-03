@@ -26,7 +26,8 @@ class FilterDaysModal extends Component {
           {days.map(day => (
             <span 
               key={day.id}
-              style={style.day}
+              style={this.props.filterDays[day.id] ? style.day : style.disabledDay}
+              onClick={() => this.props.toggleDay(day)}
             >
               {day.name}
             </span> 
@@ -34,19 +35,23 @@ class FilterDaysModal extends Component {
         </div>
         <hr />
         <Button
-          label="Voltar"
-          onClick={this.props.closeModal}
-          halfwidth
-        />
-        <Button
-          label="Salvar"
+          label="OK"
           onClick={this.props.setFilter}
-          halfwidth
         />
       </Modal>
     );
   }
 }
+
+const defaultDayStyle = {
+  display: 'block',
+  height: '40px',
+  lineHeight: '38px',
+  textAlign: 'center',
+  borderRadius: '48px',
+  margin: '5px 0',
+  color: colors.white,
+};
 
 const style = {
   title: {
@@ -61,14 +66,12 @@ const style = {
     marginTop: '8px'
   },
   day: {
-    display: 'block',
-    height: '40px',
-    backgroundColor: '#E84855',
-    color: '#fafafa',
-    lineHeight: '38px',
-    textAlign: 'center',
-    borderRadius: '48px',
-    margin: '5px 0'
+    ...defaultDayStyle,
+    backgroundColor: colors.tertiary,
+  },
+  disabledDay: {
+    ...defaultDayStyle,
+    backgroundColor: colors.grey,
   }
 }
 

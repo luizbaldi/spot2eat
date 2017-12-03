@@ -60,7 +60,8 @@ const _getRandomSpot = (spots, filterDays, currentUser, emptySpotsCallback) => {
 
     let spot;
     if (avaibleSpots.length) {
-        spot = avaibleSpots[getRandomInt(0, avaibleSpots.length - 1)];
+        const randomPosition = getRandomInt(0, avaibleSpots.length - 1);
+        spot = avaibleSpots[randomPosition];
     } else {
         emptySpotsCallback();
         spot = null;

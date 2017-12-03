@@ -123,13 +123,13 @@ class AddNewSpotModal extends Component {
 
 const defaultStyle = {
     weekDayButton: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.tertiary,
         height: '40px',
         display: 'inline-block',
         borderRadius: '4px',
         lineHeight: '38px',
         textAlign: 'center',
-        color: '#fafafa',
+        color: colors.white,
     },
 };
 
@@ -184,8 +184,8 @@ const style = {
         borderRadius: '4px',
         lineHeight: '38px',
         textAlign: 'center',
-        backgroundColor: 'rgba(162, 162, 162, 0.85)',
-        color: '#fafafa',
+        backgroundColor: colors.grey,
+        color: colors.white,
         margin: '0 1%'
     },
     disabledWeekend: {
@@ -195,8 +195,8 @@ const style = {
         borderRadius: '4px',
         lineHeight: '38px',
         textAlign: 'center',
-        backgroundColor: 'rgba(162, 162, 162, 0.85)',
-        color: '#fafafa',
+        backgroundColor: colors.grey,
+        color: colors.white,
         margin: '0 2.5%'
     }
 };
