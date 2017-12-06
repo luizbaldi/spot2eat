@@ -1,47 +1,46 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 import colors from '../../util/colors';
 import Button from '../Button';
 
-class FilterDaysModal extends Component {
-  render() {
-    const days = [
-      { id: 1, name: 'Dom' },
-      { id: 2, name: 'Seg' },
-      { id: 3, name: 'Ter' },
-      { id: 4, name: 'Qua' },
-      { id: 5, name: 'Qui' },
-      { id: 6, name: 'Sex' },
-      { id: 7, name: 'Sab' }
-    ];
-    return (
-      <Modal
-        isOpen={this.props.isOpen}
-        contentLabel="Filtrar dias"
-        style={modalStyle}
-        >
-        <span style={style.title}>Dias a serem filtrados</span>
-        <hr />
-        <div style={style.content}>
-          {days.map(day => (
-            <span 
-              key={day.id}
-              style={this.props.filterDays[day.id] ? style.day : style.disabledDay}
-              onClick={() => this.props.toggleDay(day)}
-            >
-              {day.name}
-            </span> 
-          ))}
-        </div>
-        <hr />
-        <Button
-          label="OK"
-          onClick={this.props.setFilter}
-        />
-      </Modal>
-    );
-  }
-}
+const FilterDaysModal = ({ isOpen, setFilter, toggleDay, filterDays }) => {
+  console.log(filterDays);
+  const days = [
+    { id: 1, name: 'Dom' },
+    { id: 2, name: 'Seg' },
+    { id: 3, name: 'Ter' },
+    { id: 4, name: 'Qua' },
+    { id: 5, name: 'Qui' },
+    { id: 6, name: 'Sex' },
+    { id: 7, name: 'Sab' }
+  ];
+  return (
+    <Modal
+      isOpen={isOpen}
+      contentLabel="Filtrar dias"
+      style={modalStyle}
+    >
+      <span style={style.title}>Dias a serem filtrados</span>
+      <hr />
+      <div style={style.content}>
+        {days.map(day => (
+          <span
+            key={day.id}
+            style={filterDays[day.id] ? style.day : style.disabledDay}
+            onClick={() => toggleDay(filterDays, day)}
+          >
+            {day.name}
+          </span>
+        ))}
+      </div>
+      <hr />
+      <Button
+        label="OK"
+        onClick={setFilter}
+      />
+    </Modal>
+  );
+};
 
 const defaultDayStyle = {
   display: 'block',

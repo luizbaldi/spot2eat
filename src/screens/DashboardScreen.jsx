@@ -11,6 +11,7 @@ import swal from 'sweetalert2';
 
 /* Redux */
 import { getRandomUserSpot } from '../actions/SpotsActions';
+import { setFilter, toggleDay } from '../actions/FilterDaysActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -20,16 +21,7 @@ class Dashboard extends Component {
 
 		this.state = { 
 			isLoading: false,
-			isFilterModalOpen: false,
-			filterDays: {
-				1: { name: 'Dom' },
-				2: { name: 'Seg' },
-				3: { name: 'Ter' },
-				4: { name: 'Qua' },
-				5: { name: 'Qui' },
-				6: { name: 'Sex' },
-				7: { name: 'Sab' }
-			}
+			isFilterModalOpen: false
 		};
 
 		this.generateRandomSpot = this.generateRandomSpot.bind(this);
@@ -37,7 +29,17 @@ class Dashboard extends Component {
 		this.getLocationMessage = this.getLocationMessage.bind(this);
 		this.setModalState = this.setModalState.bind(this);
 		this.setFilter = this.setFilter.bind(this);
-		this.toggleDay = this.toggleDay.bind(this);
+
+		console.log('Setting filter days default params');
+		this.props.setFilter({
+			1: { name: 'Dom' },
+			2: { name: 'Seg' },
+			3: { name: 'Ter' },
+			4: { name: 'Qua' },
+			5: { name: 'Qui' },
+			6: { name: 'Sex' },
+			7: { name: 'Sab' }
+		});
 	}
 	setLoadingState(loadingState) {
 		this.setState({
@@ -49,7 +51,7 @@ class Dashboard extends Component {
 		this.playDrumsSound()
 			.then(() => {
 				this.setLoadingState(false);
-				this.props.getRandomUserSpot(this.props.spots, this.state.filterDays, this.props.user, () => {
+				this.props.getRandomUserSpot(this.props.spots, this.props.filterDays, this.props.user, () => {
 					swal(
 						'Ops...',
 						'Vá em Menu Lateral -> Gerenciar Restaurantes e cadastre seus spots :)',
@@ -81,15 +83,6 @@ class Dashboard extends Component {
 			'success'
 		);
 	}
-	toggleDay(day) {
-		const filterDays = this.state.filterDays;
-		if (this.state.filterDays[day.id]) {
-			delete filterDays[day.id];
-		} else {
-			filterDays[day.id] = day;
-		}
-		this.setState({ filterDays });
-	}
 	render() {
 		return (
 			<FullScreenContainer {...this.props} showHeader screenName="Dashboard" loadingState={this.state.isLoading}>
@@ -112,8 +105,8 @@ class Dashboard extends Component {
 				<FilterDaysModal 
 					isOpen={this.state.isFilterModalOpen}
 					setFilter={this.setFilter}
-					toggleDay={this.toggleDay}
-					filterDays={this.state.filterDays}
+					toggleDay={this.props.toggleDay}
+					filterDays={this.props.filterDays}
 				/>
 			</FullScreenContainer>
 		);
@@ -148,8 +141,8 @@ const style = {
 	}
 };
 
-const mapStateToProps = ({ spots, user, currentSpot }) => ({ spots, user, currentSpot });
+const mapStateToProps = ({ spots, user, currentSpot, filterDays }) => ({ spots, user, currentSpot, filterDays });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getRandomUserSpot }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getRandomUserSpot, setFilter, toggleDay }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
