@@ -6,7 +6,7 @@ const modal = (WrappedComponent) => {
     render() {
       return (
         <Modal isOpen={this.props.isOpen}>
-          <WrappedComponent {...this.props} /> 
+          <WrappedComponent {...this.props} />
         </Modal>
       );
     }

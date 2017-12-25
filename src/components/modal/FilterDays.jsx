@@ -50,6 +50,7 @@ const defaultDayStyle = {
   borderRadius: '48px',
   margin: '5px 0',
   color: colors.white,
+  transition: 'background-color 0.3s ease'
 };
 
 const style = {
