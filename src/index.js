@@ -13,7 +13,7 @@ import 'css-reset/reset.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 /* Global style */
-injectGlobal`
+injectGlobal([`
   * {
   	box-sizing: border-box;
   }
@@ -23,7 +23,7 @@ injectGlobal`
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
   }
-`;
+`]);
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 

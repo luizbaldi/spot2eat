@@ -106,12 +106,12 @@ class SignUp extends Component {
               <Button
                 label="Voltar"
                 onClick={this.goBack}
-                style={styles.button}
+                halfWidth
               />
               <Button
                 label="Cadastrar"
                 onClick={this.signUp}
-                style={styles.button}
+                halfWidth
               />
             </Row>
           </Form>
@@ -157,14 +157,7 @@ const Row = styled.div`
     padding: 0 22px;
     width: 100%;
   }
-`
-
-const styles = {
-  button: {
-    width: '48%',
-    margin: '0 1%'
-  }
-};
+`;
 
 const mapDispatchToProps = dispatch => bindActionCreators({ setUser }, dispatch);
 

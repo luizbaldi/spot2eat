@@ -107,18 +107,16 @@ class LoginScreen extends Component {
               <Button
                 label="Login"
                 onClick={this.validateLogin}
-                style={styles.button}
               />
             </Row>
             <Row>
               <Button
                 label="Login Teste"
                 onClick={() => this.testLogin()}
-                style={styles.button}
               />
             </Row>
             <Row>
-              <Link style={styles.signUp} to="/signup"><span>Ou crie uma conta clicando aqui</span></Link>
+              <StyledLink to="/signup"><span>Ou crie uma conta clicando aqui</span></StyledLink>
             </Row>
           </Form>
         </Content>
@@ -170,20 +168,14 @@ const Version = styled.span`
   bottom: 0;
 `;
 
-const styles = {
-  signUp: {
-    color: 'white',
-    display: 'inline-block',
-    lineHeight: '44px',
-    textDecoration: 'none',
-    textAlign: 'center',
-    width: '100%'
-  },
-
-  button: {
-    width: '100%'
-  }
-};
+const StyledLink = styled(Link)`
+  color: white;
+  display: inline-block;
+  line-height: 44px;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+`;
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ loadSpots, setUser }, dispatch);
 
