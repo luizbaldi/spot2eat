@@ -4,7 +4,6 @@ import colors from '../../util/colors';
 import Button from '../Button';
 
 const FilterDaysModal = ({ isOpen, setFilter, toggleDay, filterDays }) => {
-  console.log(filterDays);
   const days = [
     { id: 1, name: 'Dom' },
     { id: 2, name: 'Seg' },

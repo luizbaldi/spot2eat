@@ -40,7 +40,6 @@ export function getRandomUserSpot(spots, filterDays, currentUser, emptySpotsCall
 
 /* Util methods */
 const _getRandomSpot = (spots, filterDays, currentUser, emptySpotsCallback) => {
-  console.log(filterDays);
   const avaibleSpots = _.filter(spots, spot => {
     let isAvaible = false;
 

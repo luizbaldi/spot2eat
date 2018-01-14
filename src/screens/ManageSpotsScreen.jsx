@@ -6,6 +6,7 @@ import Grid from '../components/Grid';
 
 /* Libs */
 import _ from 'lodash';
+import styled from 'styled-components';
 
 /* Redux */
 import { connect } from 'react-redux';
@@ -69,7 +70,7 @@ class ManageSpotsScreen extends Component {
   render() {
     return (
       <FullScreenContainer {...this.props} showHeader showFooter screenName="Gerenciar Locais" loadingState={this.state.isLoading}>
-        <div style={styles.content}>
+        <Content>
           <Grid
             spots={this.filterUserSpots()}
             selectedSpots={this.state.selectedSpots}
@@ -78,21 +79,19 @@ class ManageSpotsScreen extends Component {
             user={this.props.user}
             insertSpot={this.props.insertSpot}
           />
-        </div>
+        </Content>
       </FullScreenContainer>
     );
   }
 };
 
-/* Style */
-const styles = {
-  content: {
-    marginTop: '50px',
-    width: '100%',
-    textAlign: 'center',
-    marginBottom: '50px'
-  }
-};
+/* Styled components */
+const Content = styled.div`
+  margin-top: 50px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+`;
 
 const mapStateToProps = ({ user, spots }) => ({ user, spots });
 

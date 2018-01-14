@@ -9,6 +9,7 @@ import swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import { auth } from '../util/fire';
 import project from '../../package.json';
+import styled from 'styled-components';
 
 /* Redux */
 import { connect } from 'react-redux';
@@ -86,86 +87,90 @@ class LoginScreen extends Component {
   render() {
     return (
       <FullScreenContainer {...this.props} loadingState={this.state.isLoading}>
-        <div style={styles.content}>
-          <form style={styles.form}>
-            <img style={styles.logo} alt="Spot2Eat" src="img/color-logo-764x223.png" />
-            <span style={styles.version}>v{project.version}</span>
-            <div style={styles.row}>
-              <input style={styles.input}
+        <Content>
+          <Form>
+            <img alt="Spot2Eat" src="img/color-logo-764x223.png" />
+            <Version>v{project.version}</Version>
+            <Row>
+              <input
                 placeholder="Usuário"
                 onChange={this.onFieldChange}
                 name="email" />
-            </div>
-
-            <div style={styles.row}>
+            </Row>
+            <Row>
               <input type="password"
-                style={styles.input}
                 placeholder="Senha"
                 onChange={this.onFieldChange}
                 name="password" />
-            </div>
-
-            <div style={styles.row}>
+            </Row>
+            <Row>
               <Button
                 label="Login"
                 onClick={this.validateLogin}
                 style={styles.button}
               />
-            </div>
-            <div style={styles.row}>
+            </Row>
+            <Row>
               <Button
                 label="Login Teste"
                 onClick={() => this.testLogin()}
                 style={styles.button}
               />
-            </div>
-
-            <div style={styles.row}>
+            </Row>
+            <Row>
               <Link style={styles.signUp} to="/signup"><span>Ou crie uma conta clicando aqui</span></Link>
-            </div>
-          </form>
-        </div>
+            </Row>
+          </Form>
+        </Content>
       </FullScreenContainer>
     );
   }
 };
 
-/* Style */
+/* Styled Components */
+const Content = styled.div`
+  bottom: 10px;
+  left: 25px;
+  position: absolute;
+  right: 25px;
+`;
+
+const Form = styled.form`
+  margin: 0 auto;
+  max-width: 450px;
+  width: 100%;
+
+  > img {
+    width: 100%;
+  }
+`;
+
+const Row = styled.div`
+  margin-bottom: 7px;
+  width: 100%;
+
+  > input {
+    background: white;
+    border: none;
+    border-radius: 22px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+    display: block;
+    height: 44px;
+    font-size: 16px;
+    padding: 0 22px;
+    width: 100%;
+  }
+`;
+
+const Version = styled.span`
+  color: #101010;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+`;
+
 const styles = {
-  content: {
-    bottom: '10px',
-    left: '25px',
-    position: 'absolute',
-    right: '25px',
-  },
-
-  logo: {
-    width: '100%'
-  },
-
-  form: {
-    margin: '0 auto',
-    maxWidth: '450px',
-    width: '100%'
-  },
-
-  row: {
-    marginBottom: '7px',
-    width: '100%'
-  },
-
-  input: {
-    background: 'white',
-    border: 'none',
-    borderRadius: '22px',
-    boxShadow: '0 2px 5px rgba(0, 0, 0, .5)',
-    display: 'block',
-    height: '44px',
-    fontSize: '16px',
-    padding: '0 22px',
-    width: '100%'
-  },
-
   signUp: {
     color: 'white',
     display: 'inline-block',
@@ -177,14 +182,6 @@ const styles = {
 
   button: {
     width: '100%'
-  },
-
-  version: {
-    color: '#101010',
-    fontWeight: 'bold',
-    position: 'absolute',
-    right: '0',
-    bottom: '0',
   }
 };
 

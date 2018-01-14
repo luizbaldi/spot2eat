@@ -7,6 +7,7 @@ import Button from '../components/Button';
 /* Libs */
 import swal from 'sweetalert2';
 import { auth } from '../util/fire';
+import styled from 'styled-components';
 
 /* Redux */
 import { connect } from 'react-redux';
@@ -77,31 +78,31 @@ class SignUp extends Component {
   render() {
     return (
       <FullScreenContainer {...this.props} loadingState={this.state.isLoading}>
-        <div style={styles.content}>
-          <span style={styles.title}>Cadastre-se abaixo :)</span>
-          <form style={styles.form}>
-            <div style={styles.row}>
-              <input style={styles.input}
+        <Content>
+          <span>Cadastre-se abaixo :)</span>
+          <Form>
+            <Row>
+              <input
                 placeholder="Nome"
                 onChange={this.onFieldChange}
                 name="name"
               />
-            </div>
-            <div style={styles.row}>
-              <input style={styles.input}
+            </Row>
+            <Row>
+              <input
                 placeholder="E-mail"
                 onChange={this.onFieldChange}
                 name="email"
               />
-            </div>
-            <div style={styles.row}>
-              <input style={styles.input}
+            </Row>
+            <Row>
+              <input
                 placeholder="Senha"
                 onChange={this.onFieldChange}
                 name="password"
               />
-            </div>
-            <div style={styles.row}>
+            </Row>
+            <Row>
               <Button
                 label="Voltar"
                 onClick={this.goBack}
@@ -112,61 +113,57 @@ class SignUp extends Component {
                 onClick={this.signUp}
                 style={styles.button}
               />
-            </div>
-          </form>
-        </div>
+            </Row>
+          </Form>
+        </Content>
       </FullScreenContainer>
     );
   }
 };
 
-/*
- * Style
- */
+/* Styled Components */
+const Content = styled.div`
+  bottom: 50px;
+  left: 25px;
+  position: absolute;
+  right: 25px;
+  text-align: center;
+
+  > span {
+    display: block;
+    margin-bottom: 32px;
+    font-size: 1.4em;
+  }
+`;
+
+const Form = styled.form`
+  margin: 0 auto;
+  max-width: 450px;
+  width: 100%;
+`;
+
+const Row = styled.div`
+  margin-bottom: 7px;
+  width: 100%;
+
+  > input {
+    background: white;
+    border: none;
+    border-radius: 22px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+    display: block;
+    height: 44px;
+    font-size: 16px;
+    padding: 0 22px;
+    width: 100%;
+  }
+`
+
 const styles = {
-
-  content: {
-    bottom: '50px',
-    left: '25px',
-    position: 'absolute',
-    right: '25px',
-    textAlign: 'center'
-  },
-
-  form: {
-    margin: '0 auto',
-    maxWidth: '450px',
-    width: '100%'
-  },
-
-  row: {
-    marginBottom: '7px',
-    width: '100%'
-  },
-
-  input: {
-    background: 'white',
-    border: 'none',
-    borderRadius: '22px',
-    boxShadow: '0 2px 5px rgba(0, 0, 0, .5)',
-    display: 'block',
-    height: '44px',
-    fontSize: '16px',
-    padding: '0 22px',
-    width: '100%'
-  },
-
-  title: {
-    display: 'block',
-    marginBottom: '32px',
-    fontSize: '1.4em'
-  },
-
   button: {
     width: '48%',
     margin: '0 1%'
   }
-
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({ setUser }, dispatch);

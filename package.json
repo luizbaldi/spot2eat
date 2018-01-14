@@ -18,6 +18,7 @@
     "react-sidebar": "^2.3.2",
     "react-spinkit": "^3.0.0",
     "redux-thunk": "^2.2.0",
+    "styled-components": "^2.4.0",
     "sweetalert2": "^6.6.9"
   },
   "devDependencies": {

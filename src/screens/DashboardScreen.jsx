@@ -8,6 +8,7 @@ import FilterDaysModal from '../components/modal/FilterDays';
 
 /* Libs */
 import swal from 'sweetalert2';
+import styled from 'styled-components';
 
 /* Redux */
 import { getRandomUserSpot } from '../actions/SpotsActions';
@@ -30,7 +31,6 @@ class Dashboard extends Component {
     this.setModalState = this.setModalState.bind(this);
     this.setFilter = this.setFilter.bind(this);
 
-    console.log('Setting filter days default params');
     this.props.setFilter({
       1: { name: 'Dom' },
       2: { name: 'Seg' },
@@ -86,22 +86,19 @@ class Dashboard extends Component {
   render() {
     return (
       <FullScreenContainer {...this.props} showHeader screenName="Dashboard" loadingState={this.state.isLoading}>
-        <div style={style.content}>
-          <div
-            style={style.filter}
-            onClick={() => this.setModalState(true)}
-          >
-            <span style={style.filterLabel}>Opções de filtro</span>
+        <Content>
+          <Filter onClick={() => this.setModalState(true)} >
+            <span>Opções de filtro</span>
             <span><TiFilter /></span>
-          </div>
-          <div style={style.result}>
-            <p style={style.resultText}>{this.getLocationMessage()}</p>
-          </div>
+          </Filter>
+          <Result>
+            <p>{this.getLocationMessage()}</p>
+          </Result>
           <Button
             label="Sortear local"
             onClick={this.generateRandomSpot}
           />
-        </div>
+        </Content>
         <FilterDaysModal
           isOpen={this.state.isFilterModalOpen}
           setFilter={this.setFilter}
@@ -113,33 +110,35 @@ class Dashboard extends Component {
   }
 }
 
-/* Style */
-const style = {
-  content: {
-    marginTop: '60px',
-    width: '100%',
-    textAlign: 'center',
-    padding: '25px',
-    position: 'absolute',
-    bottom: '15px'
-  },
-  result: {
-    background: 'rgba(0, 0, 0, 0.4)',
-    height: '44px',
-    padding: '15px',
-    borderRadius: '22px',
-    marginBottom: '7px'
-  },
-  resultText: {
-    color: 'white'
-  },
-  filter: {
-    margin: '12px 0'
-  },
-  filterLabel: {
-    marginRight: '12px'
+/* Styled components */
+const Content = styled.div`
+  margin-top: 60px;
+  width: 100%;
+  text-align: center;
+  padding: 25px;
+  position: absolute;
+  bottom: 15px;
+`;
+
+const Filter = styled.div`
+  margin: 12px 0;
+
+  > span {
+    margin-right: 12px;
   }
-};
+`;
+
+const Result = styled.div`
+  background: rgba(0, 0, 0, 0.4);
+  height: 44px;
+  padding: 15px;
+  border-radius: 22px;
+  margin-bottom: 7px;
+
+  > p {
+    color: white;
+  }
+`;
 
 const mapStateToProps = ({ spots, user, currentSpot, filterDays }) => ({ spots, user, currentSpot, filterDays });
 
