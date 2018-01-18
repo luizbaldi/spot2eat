@@ -2,12 +2,14 @@ import React from 'react';
 
 /* Components */
 import Header from './Header';
-import Footer from './Footer';
 import Loader from './Loader';
+
+/* Libs */
+import styled from 'styled-components';
 
 const FullScreenContainer = (props) => {
   return (
-    <div style={styles.container}>
+    <Container>
       {props.loadingState ?
         <Loader />
         : <div>
@@ -19,29 +21,22 @@ const FullScreenContainer = (props) => {
               {props.children}
             </div>
           }
-          {props.showFooter ?
-            <Footer {...props} style={styles.footer} />
-            : null
-          }
         </div>
       }
-    </div>
+    </Container>
   );
 }
 
-/* Style */
-const styles = {
-  container: {
-    background: 'url(img/blue-people-bg.jpg) no-repeat',
-    backgroundPosition: 'center center',
-    backgroundSize: 'cover',
-    color: 'white',
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    width: '100%',
-    overflowY: 'auto'
-  }
-};
+const Container = styled.div`
+  background: url(img/blue-people-bg.jpg) no-repeat;
+  background-position: center center;
+  background-size: cover;
+  color: white;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: auto;
+`;
 
 export default FullScreenContainer;
