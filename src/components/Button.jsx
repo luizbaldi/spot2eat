@@ -1,11 +1,18 @@
 import React from 'react';
 import colors from '../util/colors';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Button = ({ label, onClick, halfWidth}) => {
   return (
     <StyledButton onClick={onClick} type="button" halfWidth={halfWidth}>{label}</StyledButton>
   );
+};
+
+Button.propTypes = {
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  halfWidth: PropTypes.bool
 };
 
 const StyledButton = styled.button`

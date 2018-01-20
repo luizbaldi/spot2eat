@@ -6,6 +6,7 @@ import SidebarContent from './SidebarContent';
 import { TiThMenu } from 'react-icons/lib/ti'
 import swal from 'sweetalert2';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 /* Redux */
 import { connect } from 'react-redux';
@@ -13,6 +14,11 @@ import { bindActionCreators } from 'redux';
 import { setUser } from '../actions/UserActions';
 
 class Header extends Component {
+  static propTypes = {
+    screenName: PropTypes.string,
+    history: PropTypes.object
+  }
+
   constructor(props) {
     super(props);
 
@@ -69,7 +75,8 @@ class Header extends Component {
     let sidebar = <SidebarContent
       onManageSpotsClick={this.onManageSpotsClick}
       onLogoutClick={this.onLogoutClick}
-      onSelectPlaceClick={this.onSelectPlaceClick} />;
+      onSelectPlaceClick={this.onSelectPlaceClick}
+    />;
     const sidebarProps = {
       sidebar: sidebar,
       open: this.state.sidebarOpen,
